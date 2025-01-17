@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  SerachViewController.swift
 //  PhotoSearch
 //
 //  Created by youngkyun park on 1/17/25.
@@ -7,18 +7,16 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class SerachViewController: UIViewController {
 
-    static let id = "HomeViewController"
+    static let id = "SerachViewController"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        view.backgroundColor = .red
+        view.backgroundColor = .black
     }
     
 
- 
-
+  
 }
