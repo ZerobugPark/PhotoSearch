@@ -15,7 +15,7 @@ class TabBarController: UITabBarController {
         
         configireTabBarController()
         setupTabBarAppearance()
-        //configureApperance()
+        configureApperance()
     }
     
 
