@@ -7,14 +7,33 @@
 
 import UIKit
 
-class HomeView: UIView {
+import SnapKit
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+class HomeView: BaseView {
+    
+    let titleLabel = CustomLabel(boldStyle: true, fontSize: 25)
+    
+    override func configureHierarchy() {
+        
+        addSubview(titleLabel)
+        
     }
-    */
+    
+    override func configureLayout() {
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide)
+            make.leading.equalTo(self.safeAreaLayoutGuide).offset(8)
+            make.height.equalTo(40)
+            make.width.equalTo(140)
+        }
+        
+    }
+    
+    override func configureView() {
+        
+        titleLabel.text = "OUR TOPIC"
+
+    }
 
 }

@@ -31,7 +31,7 @@ class TabBarController: UITabBarController {
         secondVC.tabBarItem.image = UIImage(systemName: "trash")
         secondVC.tabBarItem.selectedImage = UIImage(systemName: "trash.fil")
         
-        setViewControllers([firstVC, secondVC], animated: true)
+        setViewControllers([firstNav, secondVC], animated: true)
     }
     
     
