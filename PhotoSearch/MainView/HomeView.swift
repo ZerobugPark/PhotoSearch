@@ -32,7 +32,7 @@ class HomeView: BaseView {
         
         for i in 0..<3 {
             let view = UIView()
-            let label = CustomLabel(boldStyle: false, fontSize: 15)
+            let label = CustomLabel(boldStyle: false, fontSize: 17)
             let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
             
             topicViews.append(view)
@@ -78,8 +78,9 @@ class HomeView: BaseView {
             
             topicLabels[i].snp.makeConstraints { make in
                 make.top.equalTo(topicViews[i].snp.top).offset(2)
+                make.leading.equalTo(topicViews[i].safeAreaLayoutGuide).offset(4)
                 make.width.equalTo(300)
-                make.height.equalTo(30)
+                make.height.equalTo(20)
             }
             
             collectionViews[i].snp.makeConstraints { make in
@@ -97,18 +98,11 @@ class HomeView: BaseView {
         titleLabel.text = "OUR TOPIC"
         scrollView.backgroundColor = .black
         
-        topicViews[0].backgroundColor = .clear
-        topicViews[1].backgroundColor = .clear
-        topicViews[2].backgroundColor = .clear
-        
-        topicLabels[0].backgroundColor = .blue
-        topicLabels[1].backgroundColor = .red
-        topicLabels[2].backgroundColor = .white
-        
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.spacing = 4
         
+        scrollView.backgroundColor = .white
         collectionViews[0].backgroundColor = .clear
         collectionViews[1].backgroundColor = .clear
         collectionViews[2].backgroundColor = .clear
@@ -121,8 +115,6 @@ class HomeView: BaseView {
         let spacing: CGFloat = 4
         let inset: CGFloat = 4
         let objectWidth = (deviceWidth - (spacing + (inset*2))) / 2
-        //layout.minimumInteritemSpacing = 0
-        
         
         layout.itemSize = CGSize(width: objectWidth, height: 250)
         layout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
