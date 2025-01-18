@@ -14,14 +14,35 @@ class CustomButton: UIButton {
         super.init(frame: .zero)
         
         
-        configuration = .youngStyle(image: imgName, status: false)
+        configuration = .likeButtonStyle(image: imgName)
         setTitleColor(.lightGray, for: .normal)
-        //tag = tagNum
-        //layer.cornerRadius = 20
-        //clipsToBounds = true
+
         backgroundColor = .clear
     
     }
+    
+    init(color: UIColor, tagNum: Int){
+        super.init(frame: .zero)
+        
+        configuration = .colorButtonStyle(color: color)
+        //setTitleColor(.black, for: .normal)
+        tag = tagNum
+
+        backgroundColor = .clear
+    
+    }
+    
+    init(){
+        super.init(frame: .zero)
+        
+        configuration = .filterButtonStyle()
+    
+    
+    
+        backgroundColor = .clear
+        
+         
+     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -33,7 +54,53 @@ class CustomButton: UIButton {
 //@available (iOS 15.0, *)
 extension CustomButton.Configuration {
     
-    static func youngStyle(image: String, status: Bool) -> UIButton.Configuration {
+    static func filterButtonStyle() -> UIButton.Configuration {
+       
+        var configuration = UIButton.Configuration.filled()
+        
+        configuration.titleAlignment = .leading
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 8, weight: .bold)
+        configuration.image = UIImage(systemName: "list.bullet", withConfiguration: imageConfig)
+    
+       
+        configuration.baseForegroundColor = .black
+        configuration.baseBackgroundColor = .white
+        
+        configuration.cornerStyle = .capsule
+        configuration.buttonSize = .mini
+        configuration.imagePadding = 5
+
+
+        
+        return configuration
+    }
+    
+    
+    static func colorButtonStyle(color: UIColor) -> UIButton.Configuration {
+       
+        var configuration = UIButton.Configuration.filled()
+        
+        configuration.titleAlignment = .leading
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold)
+        configuration.image = UIImage(systemName: "circle.fill", withConfiguration: imageConfig)
+    
+       
+        configuration.baseForegroundColor = color
+        configuration.baseBackgroundColor = #colorLiteral(red: 0.9450977445, green: 0.9450982213, blue: 0.9537070394, alpha: 1)
+
+        configuration.cornerStyle = .capsule
+        configuration.buttonSize = .mini
+        configuration.imagePadding = 5
+
+
+        
+        return configuration
+    }
+    
+    
+    static func likeButtonStyle(image: String) -> UIButton.Configuration {
        
         var configuration = UIButton.Configuration.filled()
         
