@@ -54,6 +54,7 @@ class HomeViewController: UIViewController {
             NetworkManager.shared.callRequestTopicImage(topic: topics[i].slug) { value in
                 self.topicDatas[i] = value
                 self.mainView.collectionViews[i].reloadData()
+                self.mainView.collectionViews[i].scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
                // print(self.topicDatas)
             }
         }
@@ -130,5 +131,6 @@ extension HomeViewController: UIScrollViewDelegate {
         print(#function)
 
         randomTopic()
+      
     }
 }
