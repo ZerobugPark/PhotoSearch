@@ -17,6 +17,7 @@ class SerachViewController: UIViewController {
     
     override func loadView() {
         view = searchView
+    
     }
     
     
@@ -31,8 +32,39 @@ class SerachViewController: UIViewController {
         navigationItem.title = "Search PHOTO"
         
         view.backgroundColor = .white
+        
+        searchView.collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.id)
+        
+        searchView.collectionView.delegate = self
+        searchView.collectionView.dataSource = self
+        
     }
     
+}
 
-  
+extension SerachViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+   
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.id, for: indexPath) as? SearchCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(#function,indexPath)
+        
+        let vc = DetailViewController()
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
 }
