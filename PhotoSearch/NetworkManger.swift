@@ -35,7 +35,7 @@ class NetworkManager {
     
     func callRequestTopicImage(topic: String, completionHandler: @escaping ([UnslpashTopic]) -> Void) {
         
-        let url = "https://api.unsplash.com/topics/\(topic)/photos/?&client_id=\(UnSplashAPI.client_ID)"
+        let url = "https://api.unsplash.com/topics/\(topic)/photos/?&client_id=\(UnSplashAPI.client_ID)&order_by=latest"
         
         AF.request(url, method: .get).responseString { value in
             //print(value)
