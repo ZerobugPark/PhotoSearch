@@ -28,6 +28,7 @@ class SearchView: BaseView {
         addSubview(scrollView)
         addSubview(filterButton)
         scrollView.addSubview(stackView)
+        addSubview(collectionView)
         
         let colors:[UIColor] = [.red,.white,.black,.yellow, .green]
         let title:[String] = ["레드dddd","하ddddd얀색","검ddddd은색","노ddddd란색", "ddd초록색"]
@@ -52,6 +53,7 @@ class SearchView: BaseView {
             make.height.equalTo(35)
             
         }
+        
         stackView.snp.makeConstraints { make in
             // 스크롤바 내에서 leading을 사용시, trailing도 맞춰야함
             make.leading.equalTo(scrollView).offset(4)
@@ -63,9 +65,15 @@ class SearchView: BaseView {
             //make.top.equalTo(self.safeAreaLayoutGuide)
             make.trailing.equalTo(self.safeAreaLayoutGuide)
             make.centerY.equalTo(scrollView)
-            make.width.equalTo(80)
+            make.width.equalTo(75)
             make.height.equalTo(25)
             
+        }
+        
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(scrollView.snp.bottom)
+            make.horizontalEdges.equalTo(self)
+            make.bottom.equalTo(self.safeAreaLayoutGuide)
         }
         
         
@@ -89,11 +97,15 @@ class SearchView: BaseView {
         
         let deviceWidth = UIScreen.main.bounds.size.width
         let spacing: CGFloat = 4
-        let inset: CGFloat = 4
+        let inset: CGFloat = 0
         let objectWidth = (deviceWidth - (spacing + (inset*2))) / 2
         
-        layout.itemSize = CGSize(width: objectWidth, height: 250)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 4
+        
+        
+        layout.itemSize = CGSize(width: objectWidth, height: objectWidth*1.5)
+        layout.sectionInset = UIEdgeInsets(top: 2, left: inset, bottom: 0, right: inset)
         
 
         layout.scrollDirection = .vertical

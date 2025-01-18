@@ -10,15 +10,15 @@ import UIKit
 class CustomImageView: UIImageView {
     
     
-    init() {
+    init(cornerRadius: Bool) {
         super.init(frame: .zero)
         
-        layer.cornerRadius = 10
-        clipsToBounds = true
+        if cornerRadius {
+            layer.cornerRadius = 10
+            clipsToBounds = true
+        }
+        
     }
-    
-    
-    
     
     
     @available(*, unavailable)

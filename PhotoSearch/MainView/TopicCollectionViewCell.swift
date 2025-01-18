@@ -13,7 +13,7 @@ class TopicCollectionViewCell: BaseCollectionViewCell {
     
     static let id = "TopicCollectionViewCell"
     
-    let imageView = CustomImageView()
+    let imageView = CustomImageView(cornerRadius: true)
     let likeButton = CustomButton(imgName: "star.fill")
 
     
