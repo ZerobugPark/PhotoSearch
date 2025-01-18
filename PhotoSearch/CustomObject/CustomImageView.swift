@@ -9,9 +9,16 @@ import UIKit
 
 class CustomImageView: UIImageView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    init() {
+        super.init(frame: .zero)
+        
+        layer.cornerRadius = 10
+        clipsToBounds = true
     }
+    
+    
+    
     
     
     @available(*, unavailable)

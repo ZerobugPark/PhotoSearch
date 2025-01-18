@@ -16,6 +16,7 @@ class TabBarController: UITabBarController {
         configireTabBarController()
         setupTabBarAppearance()
         configureApperance()
+        
     }
     
 
@@ -25,6 +26,7 @@ class TabBarController: UITabBarController {
         firstVC.tabBarItem.image = UIImage(systemName: "star")
         firstVC.tabBarItem.selectedImage = UIImage(systemName: "star.fil")
         let firstNav = UINavigationController(rootViewController: firstVC)
+        
         
         let secondVC = SerachViewController()
         secondVC.tabBarItem.title = "두번째 화면"
@@ -53,13 +55,14 @@ class TabBarController: UITabBarController {
         navigationBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
         
         
         let tabBarApperance = UITabBarAppearance()
         tabBarApperance.configureWithOpaqueBackground()
         tabBarApperance.backgroundColor = .white
         
-        
+        UITabBar.appearance().scrollEdgeAppearance = tabBarApperance
     }
     
     
