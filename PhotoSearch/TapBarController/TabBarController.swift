@@ -14,26 +14,31 @@ class TabBarController: UITabBarController {
         print(#function)
         
         configireTabBarController()
-        setupTabBarAppearance()
+        //setupTabBarAppearance()
         configureApperance()
-        
+        self.selectedIndex = 1
     }
     
 
     func configireTabBarController() {
         let firstVC = HomeViewController()
-        firstVC.tabBarItem.title = "첫화면"
-        firstVC.tabBarItem.image = UIImage(systemName: "star")
-        firstVC.tabBarItem.selectedImage = UIImage(systemName: "star.fil")
+        //firstVC.tabBarItem.title = "첫화면"
+        firstVC.tabBarItem.image = UIImage(systemName: "photo.on.rectangle")
+        firstVC.tabBarItem.selectedImage = UIImage(systemName: "photo.fill.on.rectangle.fill")
+        firstVC.tabBarController?.selectedIndex = 0
+        
         let firstNav = UINavigationController(rootViewController: firstVC)
         
         
         let secondVC = SerachViewController()
-        secondVC.tabBarItem.title = "두번째 화면"
-        secondVC.tabBarItem.image = UIImage(systemName: "trash")
-        secondVC.tabBarItem.selectedImage = UIImage(systemName: "trash.fil")
+        //secondVC.tabBarItem.title = "두번째 화면"
+        secondVC.tabBarItem.image = UIImage(systemName: "magnifyingglass.circle")
+        secondVC.tabBarItem.selectedImage = UIImage(systemName: "magnifyingglass.circle.fill")
+        secondVC.tabBarController?.selectedIndex = 1
+        let secondNav = UINavigationController(rootViewController: secondVC)
         
-        setViewControllers([firstNav, secondVC], animated: true)
+        setViewControllers([firstNav, secondNav], animated: true)
+  
     }
     
     
@@ -51,11 +56,13 @@ class TabBarController: UITabBarController {
         
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
-        navigationBarAppearance.backgroundColor = .red
-        navigationBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationBarAppearance.backgroundColor = .white
+        navigationBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
         navigationBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+        
+        
         
         
         let tabBarApperance = UITabBarAppearance()
