@@ -295,7 +295,7 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
 extension SearchViewController {
     
     private func showAlert() {
-        let alert = UIAlertController(title: "안내", message: "원하시는 검색어를 입력해주세요.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "안내", message: "1글자 이상의 검색어를 입력해주세요.", preferredStyle: .alert)
         let ok = UIAlertAction(title: "확인", style: .cancel)
         
         alert.addAction(ok)
