@@ -30,7 +30,7 @@ class TabBarController: UITabBarController {
         let firstNav = UINavigationController(rootViewController: firstVC)
         
         
-        let secondVC = SerachViewController()
+        let secondVC = SearchViewController()
         //secondVC.tabBarItem.title = "두번째 화면"
         secondVC.tabBarItem.image = UIImage(systemName: "magnifyingglass.circle")
         secondVC.tabBarItem.selectedImage = UIImage(systemName: "magnifyingglass.circle.fill")
