@@ -51,7 +51,7 @@ class SearchView: BaseView {
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
-            make.height.equalTo(35)
+            make.height.equalTo(40)
             
         }
         
@@ -63,7 +63,6 @@ class SearchView: BaseView {
         }
         
         filterButton.snp.makeConstraints { make in
-            //make.top.equalTo(self.safeAreaLayoutGuide)
             make.trailing.equalTo(self.safeAreaLayoutGuide)
             make.centerY.equalTo(scrollView)
             make.width.equalTo(75)
@@ -93,8 +92,9 @@ class SearchView: BaseView {
         filterButton.setTitle("관련순", for: .normal)
         
         label.text = "사진을 검색해보세요."
-
-        
+        let placeholder = "검색어를 입력해주세요."
+        searchController.searchBar.placeholder = placeholder
+        scrollView.showsHorizontalScrollIndicator = false
     }
     
     
