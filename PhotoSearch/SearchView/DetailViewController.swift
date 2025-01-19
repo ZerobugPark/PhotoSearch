@@ -8,13 +8,29 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
+    
+    
+    let detailView = DetailView()
+    
+    var backupResults: Result?
+    
+    override func loadView() {
+        view = detailView
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .red
+        
+        
+       
     }
     
-
-
+    
+    
+    
+    
+    private func getUserDeatil() {
+        
+    }
+    
+    
 }
