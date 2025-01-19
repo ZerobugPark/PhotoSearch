@@ -13,7 +13,8 @@ class DetailView: BaseView {
     
     let profileImageView = CustomImageView()
     let nameLable = CustomLabel(boldStyle: false, fontSize: 12)
-    let DateLable = CustomLabel(boldStyle: true, fontSize: 12)
+    let dateLable = CustomLabel(boldStyle: true, fontSize: 12)
+    let latestLabel = CustomLabel(boldStyle: true, fontSize: 12, color: .systemGray2)
     
     let stackView = UIStackView()
     
@@ -28,8 +29,9 @@ class DetailView: BaseView {
         
         addSubview(profileImageView)
         addSubview(stackView)
+        addSubview(latestLabel)
         stackView.addArrangedSubview(nameLable)
-        stackView.addArrangedSubview(DateLable)
+        stackView.addArrangedSubview(dateLable)
         addSubview(mainImge)
         addSubview(informationLable)
         
@@ -62,6 +64,15 @@ class DetailView: BaseView {
         stackView.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide).offset(4)
             make.leading.equalTo(profileImageView.snp.trailing).offset(4)
+        }
+        
+        latestLabel.snp.makeConstraints { make in
+            
+            make.top.equalTo(self.safeAreaLayoutGuide).offset(17)
+            make.leading.equalTo(stackView.snp.trailing).offset(4)
+            make.width.greaterThanOrEqualTo(30)
+            make.height.equalTo(20)
+            
         }
         
         mainImge.snp.makeConstraints { make in
@@ -109,28 +120,13 @@ class DetailView: BaseView {
     
     override func configureView() {
         
-        let descripionTitle: [String] = ["크기", "조회수", "다운로드"]
-        
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.spacing = 2
 
-        profileImageView.backgroundColor = .red
-        nameLable.text = "dsadadsadsad"
-        DateLable.text = "DAsdadadsadasd"
-        mainImge.backgroundColor = .blue
+        latestLabel.textAlignment = .left
         
         informationLable.text = "정보"
-        
-        
-        for i in 0..<descripionLables.count {
-
-            descripionLables[i].text = descripionTitle[i]
-            descripionLables[i].textAlignment = .left
-            descripionResultLables[i].backgroundColor = .green
-            descripionResultLables[i].text = "dsadadsadsad"
-            descripionResultLables[i].textAlignment = .right
-        }
         
         DispatchQueue.main.async {
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
