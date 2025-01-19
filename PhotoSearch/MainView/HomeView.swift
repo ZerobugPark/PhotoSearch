@@ -103,9 +103,13 @@ class HomeView: BaseView {
         stackView.spacing = 4
         
         scrollView.backgroundColor = .white
-        collectionViews[0].backgroundColor = .clear
-        collectionViews[1].backgroundColor = .clear
-        collectionViews[2].backgroundColor = .clear
+        
+        for i in 0..<collectionViews.count {
+            collectionViews[i].backgroundColor = .clear
+            collectionViews[i].showsHorizontalScrollIndicator = false
+        }
+        
+        scrollView.showsVerticalScrollIndicator = false
     }
     
     private func createCollectionViewLayout() -> UICollectionViewLayout {
