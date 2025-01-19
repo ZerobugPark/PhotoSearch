@@ -12,36 +12,25 @@ class CustomButton: UIButton {
     
     init(imgName: String){
         super.init(frame: .zero)
-        
-        
         configuration = .likeButtonStyle(image: imgName)
         setTitleColor(.lightGray, for: .normal)
-
         backgroundColor = .clear
-    
+
     }
     
     init(color: UIColor, tagNum: Int){
         super.init(frame: .zero)
-        
         configuration = .colorButtonStyle(color: color)
-        //setTitleColor(.black, for: .normal)
+        
         tag = tagNum
-
         backgroundColor = .clear
-    
     }
     
     init(){
+        
         super.init(frame: .zero)
-        
         configuration = .filterButtonStyle()
-    
-    
-    
         backgroundColor = .clear
-        
-         
      }
     
     required init?(coder: NSCoder) {
@@ -63,16 +52,13 @@ extension CustomButton.Configuration {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 8, weight: .bold)
         configuration.image = UIImage(systemName: "list.bullet", withConfiguration: imageConfig)
     
-       
         configuration.baseForegroundColor = .black
         configuration.baseBackgroundColor = .white
         
         configuration.cornerStyle = .capsule
         configuration.buttonSize = .mini
         configuration.imagePadding = 5
-
-
-        
+      
         return configuration
     }
     
@@ -86,15 +72,14 @@ extension CustomButton.Configuration {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold)
         configuration.image = UIImage(systemName: "circle.fill", withConfiguration: imageConfig)
     
-       
-        configuration.baseForegroundColor = color
+        configuration.baseForegroundColor = .black
         configuration.baseBackgroundColor = #colorLiteral(red: 0.9450977445, green: 0.9450982213, blue: 0.9537070394, alpha: 1)
 
+        
+        configuration.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(paletteColors: [color])
         configuration.cornerStyle = .capsule
         configuration.buttonSize = .mini
         configuration.imagePadding = 5
-
-
         
         return configuration
     }
@@ -108,17 +93,15 @@ extension CustomButton.Configuration {
         
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 8, weight: .thin)
         configuration.image = UIImage(systemName: image, withConfiguration: imageConfig)
-    
-       
+           
         configuration.baseForegroundColor = .yellow
         configuration.baseBackgroundColor = .darkGray
+        
 
         configuration.cornerStyle = .capsule
         configuration.buttonSize = .mini
         configuration.imagePadding = 5
 
-
-        
         return configuration
     }
     

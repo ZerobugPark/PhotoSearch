@@ -20,6 +20,14 @@ class CustomImageView: UIImageView {
         
     }
     
+    init() {
+        super.init(frame: .zero)
+        
+        clipsToBounds = true
+    }
+        
+    
+    
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
