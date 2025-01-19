@@ -65,7 +65,7 @@ class SearchView: BaseView {
         filterButton.snp.makeConstraints { make in
             make.trailing.equalTo(self.safeAreaLayoutGuide)
             make.centerY.equalTo(scrollView)
-            make.width.equalTo(75)
+            make.width.greaterThanOrEqualTo(75)
             make.height.equalTo(25)
             
         }
