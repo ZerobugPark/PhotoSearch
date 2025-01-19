@@ -8,6 +8,8 @@
 import Foundation
 
 
+
+// MARK: - Topic List API
 struct TopicList: Decodable {
     
     let slug: String
@@ -15,7 +17,7 @@ struct TopicList: Decodable {
     //let status: String
 }
 
-
+// MARK: - Topic Image API
 struct UnslpashTopic: Decodable {
     
     let id: String
@@ -34,12 +36,13 @@ struct Alternative_slugs: Decodable {
 
 struct URLs: Decodable {
    // let raw: String
-   // let full: String
+    let full: String
    // let regular: String
     let small: String
     
 }
 
+// MARK: - Search Image API
 struct UnslpashGetImage: Decodable {
     
     let total: Int
@@ -72,3 +75,26 @@ struct UserInfo: Decodable {
 struct ProfileImage: Decodable {
     let small: String
 }
+
+// MARK: - User Detail  API
+struct UserDetail: Decodable {
+    let id: String
+    let downloads: DetailInfo
+    let views: DetailInfo
+}
+
+struct DetailInfo: Decodable {
+    let total: Int
+    let historical: Historical
+}
+
+struct Historical: Decodable  {
+    let values: [value]
+
+}
+
+struct value: Decodable {
+    let date: String
+    let value: Int
+}
+
