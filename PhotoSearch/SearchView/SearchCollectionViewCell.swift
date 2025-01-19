@@ -28,8 +28,7 @@ class SearchCollectionViewCell: BaseCollectionViewCell {
         
         imageView.snp.makeConstraints { make in
             make.size.equalTo(contentView)
-            
-            
+         
             
         }
         likeButton.snp.makeConstraints { make in
@@ -41,16 +40,15 @@ class SearchCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        imageView.backgroundColor = .red
     }
     
     
-//    func setup(data: UnslpashTopic) {
-//        
-//        let url = URL(string: data.urls.small)
-//        imageView.kf.setImage(with: url)
-//        
-//        likeButton.setTitle(data.likes.formatted(), for: .normal)
-//    }
+    func setup(data: Result) {
+        
+        let url = URL(string: data.urls.small)
+        imageView.kf.setImage(with: url)
+        
+        likeButton.setTitle(data.likes.formatted(), for: .normal)
+    }
     
 }

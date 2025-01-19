@@ -11,9 +11,10 @@ import SnapKit
 
 class SearchView: BaseView {
  
-    let searchBar = UISearchController()
+    let searchController = UISearchController()
     let stackView = UIStackView()
     let scrollView = UIScrollView()
+    let label = CustomLabel(boldStyle: true, fontSize: 20)
     
     var colorButtons: [CustomButton] = []
     
@@ -29,13 +30,13 @@ class SearchView: BaseView {
         addSubview(filterButton)
         scrollView.addSubview(stackView)
         addSubview(collectionView)
+        addSubview(label)
+       
         
-        let colors:[UIColor] = [.red,.white,.black,.yellow, .green]
-        let title:[String] = ["레드dddd","하ddddd얀색","검ddddd은색","노ddddd란색", "ddd초록색"]
-        
-        for i in 0..<5 {
-            let button = CustomButton(color: colors[i], tagNum: i)
-            button.setTitle(title[i], for: .normal)
+        for i in 0..<ColorEnum.allCases.count  {
+            let button = CustomButton(color: ColorEnum.allCases[i].color, tagNum: i)
+            let title = ColorEnum.allCases[i].rawValue
+            button.setTitle(title, for: .normal)
             colorButtons.append(button)
             stackView.addArrangedSubview(colorButtons[i])
         }
@@ -75,6 +76,11 @@ class SearchView: BaseView {
             make.horizontalEdges.equalTo(self)
             make.bottom.equalTo(self.safeAreaLayoutGuide)
         }
+        label.snp.makeConstraints { make in
+            make.center.equalTo(self)
+            make.width.equalTo(180)
+            make.height.equalTo(30)
+        }
         
         
     }
@@ -85,7 +91,9 @@ class SearchView: BaseView {
         stackView.spacing = 4
         
         filterButton.setTitle("관련순", for: .normal)
-        scrollView.backgroundColor = .cyan
+        
+        label.text = "사진을 검색해보세요."
+
         
     }
     
@@ -117,3 +125,4 @@ class SearchView: BaseView {
     
     
 }
+
