@@ -17,6 +17,7 @@ class CustomImageView: UIImageView {
             layer.cornerRadius = 10
             clipsToBounds = true
         }
+        contentMode = .scaleToFill//.scaleAspectFit
         
     }
     
@@ -24,6 +25,7 @@ class CustomImageView: UIImageView {
         super.init(frame: .zero)
         
         clipsToBounds = true
+        
     }
         
     
