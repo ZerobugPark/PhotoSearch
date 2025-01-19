@@ -39,3 +39,36 @@ struct URLs: Decodable {
     let small: String
     
 }
+
+struct UnslpashGetImage: Decodable {
+    
+    let total: Int
+    let total_pages: Int
+    let results: [Result]
+    
+}
+
+struct Result: Decodable {
+    let id: String
+    let created_at: String
+    let updated_at: String
+    
+    let width: Int
+    let height: Int
+    
+    let description: String? // Null 방지
+    let alt_description: String
+    let urls: URLs
+    let likes: Int
+    let user: UserInfo
+}
+
+
+struct UserInfo: Decodable {
+    let name: String
+    let profile_image: ProfileImage
+}
+
+struct ProfileImage: Decodable {
+    let small: String
+}
