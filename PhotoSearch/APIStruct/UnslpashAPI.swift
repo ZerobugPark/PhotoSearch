@@ -59,8 +59,10 @@ struct Result: Decodable {
     let width: Int
     let height: Int
     
-    let description: String? // Null 방지
-    let alt_description: String
+    
+    // Null값이 들어올 수 있으니 API는 모든 값을 Null로 처리하는게 좋을까여?..
+    let description: String?
+    //let alt_description: String
     let urls: URLs
     let likes: Int
     let user: UserInfo

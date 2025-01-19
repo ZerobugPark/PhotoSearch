@@ -80,7 +80,7 @@ class SearchViewController: UIViewController {
         let title = searchView.filterButton.titleLabel?.text == "관련순" ? "최신순" : "관련순"
         searchView.filterButton.setTitle(title, for: .normal)
         filter = filter == "relevant" ? "latest" : "relevant"
-        
+        print(searchText)
         NetworkManager.shared.callRequestGetImage(query: searchText, filter: filter, page: page) { value in
            
             self.getInfo = value
@@ -212,6 +212,7 @@ extension SearchViewController: UISearchBarDelegate {
 
         changeButtonColor(status: false)
         results.removeAll()
+        filter =  "relevant"
         searchView.collectionView.reloadData()
         
         guard let text = searchBar.text?.replacingOccurrences(of: " ", with: ""), !text.isEmpty  else {
@@ -271,7 +272,6 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
                         self.getInfo = value
                         self.results = self.getInfo.results
                         self.searchView.collectionView.reloadData()
-                        print("컬러가 선텍되었습니다")
                         self.page += 1
                     }
                  
