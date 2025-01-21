@@ -17,6 +17,7 @@ enum UnsplashRequest {
     case searchImage(query: String, filter: String, page: String)
     case searchImageWithColor(query: String, filter: String, page: String, color: String)
     case userDetail(id: String)
+    case randomImgae(count: String)
     
  
     
@@ -38,6 +39,8 @@ enum UnsplashRequest {
             return URL(string: baseURL + "search/photos")!
         case .userDetail(let id):
             return URL(string: baseURL + "photos/\(id)/statistics")!
+        case .randomImgae:
+            return URL(string: baseURL + "photos/random")!
         }
     }
     
@@ -62,6 +65,9 @@ enum UnsplashRequest {
             return parameters
         case let .searchImageWithColor(query, filter, page, color):
             let parameters = ["query": query, "order_by": filter, "page": page, "color": color,"per_page": "20"]
+            return parameters
+        case .randomImgae(let count):
+            let parameters = ["count": count]
             return parameters
         default:
             return nil
@@ -144,6 +150,20 @@ class NetworkManager {
     func callRequestGetUserDetail(api: UnsplashRequest, completionHandler: @escaping (UserDetail) -> Void) {
        
         AF.request(api.endpoint, method: api.method, headers: api.header).validate(statusCode: 0..<300).responseDecodable(of: UserDetail.self) { response in
+
+            switch response.result {
+            case .success(let value):
+                completionHandler(value)
+            case.failure(let error):
+                dump(error)
+            }
+        }
+    }
+    
+    func callRequestRandomImage(api: UnsplashRequest, completionHandler: @escaping ([Result]) -> Void) {
+       
+        AF.request(api.endpoint, method: api.method,
+                   parameters: api.parameter,encoding: URLEncoding(destination: .queryString),headers: api.header).validate(statusCode: 0..<300).responseDecodable(of: [Result].self) { response in
 
             switch response.result {
             case .success(let value):

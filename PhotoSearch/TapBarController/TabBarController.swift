@@ -22,7 +22,6 @@ class TabBarController: UITabBarController {
 
     func configireTabBarController() {
         let firstVC = HomeViewController()
-        //firstVC.tabBarItem.title = "첫화면"
         firstVC.tabBarItem.image = UIImage(systemName: "photo.on.rectangle")
         firstVC.tabBarItem.selectedImage = UIImage(systemName: "photo.fill.on.rectangle.fill")
         firstVC.tabBarController?.selectedIndex = 0
@@ -30,14 +29,23 @@ class TabBarController: UITabBarController {
         let firstNav = UINavigationController(rootViewController: firstVC)
         
         
-        let secondVC = SearchViewController()
-        //secondVC.tabBarItem.title = "두번째 화면"
-        secondVC.tabBarItem.image = UIImage(systemName: "magnifyingglass.circle")
-        secondVC.tabBarItem.selectedImage = UIImage(systemName: "magnifyingglass.circle.fill")
+        let secondVC = ShortsViewController()
+        secondVC.tabBarItem.image = UIImage(systemName: "video")
+        secondVC.tabBarItem.selectedImage = UIImage(systemName: "video.fill")
         secondVC.tabBarController?.selectedIndex = 1
         let secondNav = UINavigationController(rootViewController: secondVC)
+
         
-        setViewControllers([firstNav, secondNav], animated: true)
+        
+        let thirdVC = SearchViewController()
+        thirdVC.tabBarItem.image = UIImage(systemName: "magnifyingglass.circle")
+        thirdVC.tabBarItem.selectedImage = UIImage(systemName: "magnifyingglass.circle.fill")
+        thirdVC.tabBarController?.selectedIndex = 2
+        let thirdNav = UINavigationController(rootViewController: thirdVC)
+        
+        
+        
+        setViewControllers([firstNav, secondNav, thirdNav], animated: true)
   
     }
     
@@ -52,8 +60,8 @@ class TabBarController: UITabBarController {
 
     }
     
+    // 네비게이션 컨트롤러 및 탭바 공통 적용
     func configureApperance() {
-        
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.backgroundColor = .white
@@ -79,6 +87,6 @@ class TabBarController: UITabBarController {
 extension TabBarController: UITabBarControllerDelegate {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        print(item)
+        
     }
 }
