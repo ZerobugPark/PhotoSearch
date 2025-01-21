@@ -53,7 +53,7 @@ class SearchViewController: UIViewController {
         searchView.collectionView.dataSource = self
         searchView.collectionView.prefetchDataSource = self
         
-        // 서치바 네비게이션 컨트롤러 영역 미침법
+        // 서치바 네비게이션 컨트롤러 영역 미침범
         searchView.searchController.hidesNavigationBarDuringPresentation = false
         buttonAddTarget()
 
@@ -81,7 +81,7 @@ class SearchViewController: UIViewController {
         searchView.filterButton.setTitle(title, for: .normal)
         filter = filter == "relevant" ? "latest" : "relevant"
         print(searchText)
-        NetworkManager.shared.callRequestGetImage(query: searchText, filter: filter, page: page) { value in
+        NetworkManager.shared.callRequestGetImage(api: .searchImage(query: searchText, filter: filter, page: String(page))) { value in
            
             self.getInfo = value
             
@@ -142,7 +142,7 @@ class SearchViewController: UIViewController {
         default: colorFilter = "red"
         }
         
-        NetworkManager.shared.callRequestGetImageWithColor(query: searchText, filter: filter, page: page, color: colorFilter) { value in
+        NetworkManager.shared.callRequestGetImageWithColor(api: .searchImageWithColor(query: searchText, filter: filter, page: String(page), color: colorFilter)) { value in
            
             self.getInfo = value
             
@@ -225,7 +225,7 @@ extension SearchViewController: UISearchBarDelegate {
         searchText = text
         page = 1
         
-        NetworkManager.shared.callRequestGetImage(query: text, filter: filter,page: page) { value in
+        NetworkManager.shared.callRequestGetImage(api: .searchImage(query: searchText, filter: filter, page: String(page))) { value in
            
             self.getInfo = value
              
@@ -239,6 +239,9 @@ extension SearchViewController: UISearchBarDelegate {
             self.backupResults = self.results
             self.searchView.collectionView.reloadData()
             
+            if self.getInfo.total > 0, !self.getInfo.results.isEmpty {
+                self.searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
         }
         
     }
@@ -268,7 +271,7 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
         for item in indexPaths {
             if results.count - 2 == item.item {
                 if previousButtonTag != nil {
-                    NetworkManager.shared.callRequestGetImageWithColor(query: searchText, filter: filter, page: page, color: colorFilter) { value in
+                    NetworkManager.shared.callRequestGetImageWithColor(api: .searchImageWithColor(query: searchText, filter: filter, page: String(page), color: colorFilter)) { value in
                         self.getInfo = value
                         self.results = self.getInfo.results
                         self.searchView.collectionView.reloadData()
@@ -276,7 +279,7 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
                     }
                  
                 } else {
-                    NetworkManager.shared.callRequestGetImage(query: searchText, filter: filter, page: page) { value in
+                    NetworkManager.shared.callRequestGetImage(api: .searchImage(query: searchText, filter: filter, page: String(page))){ value in
                         self.getInfo = value
                         self.results.append(contentsOf: self.getInfo.results)
                         self.searchView.collectionView.reloadData()

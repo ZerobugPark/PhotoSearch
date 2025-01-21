@@ -45,7 +45,7 @@ class SearchCollectionViewCell: BaseCollectionViewCell {
     
     func setup(data: Result) {
         
-        let url = URL(string: data.urls.small)
+        let url = URL(string: data.urls.thumb)
         imageView.kf.setImage(with: url)
         
         likeButton.setTitle(data.likes.formatted(), for: .normal)

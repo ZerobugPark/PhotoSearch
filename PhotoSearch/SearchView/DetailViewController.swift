@@ -31,11 +31,9 @@ class DetailViewController: UIViewController {
     
     
     private func getUserDeatil() {
-        //print(userDetail)
-        
         guard let id = resultInfo?.id else { return }
         
-        NetworkManager.shared.callRequestGetUserDetail(id: id) { value in
+        NetworkManager.shared.callRequestGetUserDetail(api: .userDetail(id: id)) { value in
             let userDetail = value
             self.loadData(value: userDetail)
             

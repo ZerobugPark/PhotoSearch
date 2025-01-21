@@ -34,10 +34,11 @@ class HomeViewController: UIViewController {
             mainView.collectionViews[i].register(TopicCollectionViewCell.self, forCellWithReuseIdentifier: TopicCollectionViewCell.id)
         }
         
-        NetworkManager.shared.callRequestTopic { value in
+        NetworkManager.shared.callRequestTopic(api: .topics) { value in
             self.topics = value
             self.randomTopic()
         }
+        
         
     }
     
