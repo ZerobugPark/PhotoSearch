@@ -23,10 +23,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         getUserDeatil()
-
-       
     }
     
     
@@ -36,13 +33,10 @@ class DetailViewController: UIViewController {
         NetworkManager.shared.callRequestGetUserDetail(api: .userDetail(id: id)) { value in
             let userDetail = value
             self.loadData(value: userDetail)
-            
         }
-        
     }
     
     private func loadData(value: UserDetail) {
-        
         
         guard let result = resultInfo else { return }
         
@@ -56,8 +50,6 @@ class DetailViewController: UIViewController {
         detailView.dateLable.text = releaseDateString(result.created_at) + " 게시됨"
         detailView.latestLabel.text = "(latest: \(releaseDateString(result.updated_at)))"
         
-        
-        // 상세화면 입장시, BaseView에 미리 작업하면, 로딩되는 잠깐의 시간동안, baseView에 작업한 내용이 먼저 나옴, 그래서 화면전환이 어색함.
         let descripionTitle: [String] = ["크기", "조회수", "다운로드"]
         for i in 0..<detailView.descripionLables.count {
             detailView.descripionLables[i].text = descripionTitle[i]
@@ -70,7 +62,7 @@ class DetailViewController: UIViewController {
         detailView.descripionResultLables[0].text = "\(result.width) X \(result.height)" // 이미지 크기
         detailView.descripionResultLables[1].text = value.downloads.total.formatted() // 조회수
         detailView.descripionResultLables[2].text = value.views.total.formatted() // 다운로드
-                
+        
         
     }
     
@@ -85,7 +77,7 @@ class DetailViewController: UIViewController {
         let dateString = dateFormatter.string(from: isoDate)
         return dateString
     }
-
+    
     
 }
 

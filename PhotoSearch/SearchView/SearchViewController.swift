@@ -11,8 +11,13 @@ class SearchViewController: UIViewController {
 
     static let id = "SerachViewController"
     
-    private var results: [Result] = []
+    private var results: [Result] = [] {
+        didSet {
+            self.searchView.collectionView.reloadData()
+        }
+    }
     private var backupResults: [Result] = []
+    
     private lazy var getInfo: UnslpashGetImage = UnslpashGetImage(total: 0, total_pages: 0, results: results)
                                                 
     private var page = 1
@@ -30,7 +35,6 @@ class SearchViewController: UIViewController {
         view = searchView
     
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,7 +96,6 @@ class SearchViewController: UIViewController {
                 self.searchView.label.isHidden = true
             }
             self.results = self.getInfo.results
-            self.searchView.collectionView.reloadData()
             
             if self.getInfo.total > 0, !self.getInfo.results.isEmpty {
                 self.searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -153,7 +156,6 @@ class SearchViewController: UIViewController {
                 self.searchView.label.isHidden = true
             }
             self.results = self.getInfo.results
-            self.searchView.collectionView.reloadData()
             
             if self.getInfo.total > 0, !self.getInfo.results.isEmpty {
                 self.searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -200,7 +202,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let vc = DetailViewController()
         vc.resultInfo = results[indexPath.item]
-        navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: false)
     }
     
     
@@ -237,7 +239,6 @@ extension SearchViewController: UISearchBarDelegate {
             }
             self.results = self.getInfo.results
             self.backupResults = self.results
-            self.searchView.collectionView.reloadData()
             
             if self.getInfo.total > 0, !self.getInfo.results.isEmpty {
                 self.searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -274,7 +275,6 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
                     NetworkManager.shared.callRequestGetImageWithColor(api: .searchImageWithColor(query: searchText, filter: filter, page: String(page), color: colorFilter)) { value in
                         self.getInfo = value
                         self.results = self.getInfo.results
-                        self.searchView.collectionView.reloadData()
                         self.page += 1
                     }
                  
@@ -282,13 +282,10 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
                     NetworkManager.shared.callRequestGetImage(api: .searchImage(query: searchText, filter: filter, page: String(page))){ value in
                         self.getInfo = value
                         self.results.append(contentsOf: self.getInfo.results)
-                        self.searchView.collectionView.reloadData()
                         self.page += 1
                     
                     }
                 }
-                
-                
             }
         }
     }
