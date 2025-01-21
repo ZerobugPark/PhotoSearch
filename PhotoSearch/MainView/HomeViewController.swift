@@ -45,18 +45,34 @@ class HomeViewController: UIViewController {
     func randomTopic() {
         topics = topics.shuffled()
         
+        let group = DispatchGroup()
+        
+        
         for i in 0..<mainView.collectionViews.count {
-            //이미지 뷰 추가
+            group.enter()
             let topic = TitleEnum(rawValue: topics[i].slug)?.title ?? "일치하는 케이스가 없습니다"
             print(topics[i].slug)
             mainView.topicLabels[i].text = topic
             
-            NetworkManager.shared.callRequestTopicImage(topic: topics[i].slug) { value in
+            NetworkManager.shared.callRequestTopicImage(api: .topicImage(slug: topics[i].slug)) { value in
                 self.topicDatas[i] = value
+                group.leave()
+
+            } failHandler: {
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .main) {
+            print("끝")
+            for i in 0..<self.mainView.collectionViews.count
+            {
                 self.mainView.collectionViews[i].reloadData()
                 self.mainView.collectionViews[i].scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
             }
+            
         }
+        
     }
     
     
