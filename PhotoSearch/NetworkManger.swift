@@ -9,6 +9,42 @@ import Foundation
 
 import Alamofire
 
+enum UnsplashRequest {
+    
+    case topics
+    case topicImage(slug: String)
+    case getImage(query: String)
+    
+    
+    var baseURL: String {
+        return "https://api.unsplash.com/"
+    }
+    
+    var endpoint: URL {
+        switch self {
+        case .topics:
+            return URL(string: baseURL + "topics")!
+        case .topicImage(let slug):
+           return URL(string: baseURL + "topics/\(slug)/photos?order_by=latest")!
+        case .getImage(let query):
+            return URL(string: baseURL + "photos/\(query)")!
+        }
+    }
+    
+    var header: HTTPHeaders {
+        return ["Authorization": "Client-ID \(UnSplashAPI.client_ID)"]
+    }
+    
+    var method: HTTPMethod {
+        return .get
+    }
+    
+    
+
+}
+
+
+
 class NetworkManager {
     
     static let shared = NetworkManager()
@@ -22,7 +58,7 @@ class NetworkManager {
         let url = "https://api.unsplash.com/topics?client_id=\(UnSplashAPI.client_ID)&per_page=30"
         
         AF.request(url, method: .get).validate(statusCode: 0..<300).responseDecodable(of: [TopicList].self) { response in
-            //print(response.response?.statusCode)
+         
             
             switch response.result {
             case .success(let value):
@@ -34,27 +70,21 @@ class NetworkManager {
         }
     }
     
-    func callRequestTopicImage(topic: String, completionHandler: @escaping ([UnslpashTopic]) -> Void) {
-        
-        let url = "https://api.unsplash.com/topics/\(topic)/photos/?client_id=\(UnSplashAPI.client_ID)&order_by=latest"
-        
-        AF.request(url, method: .get).responseString { value in
-            //print(value)
-        }
-        AF.request(url, method: .get).validate(statusCode: 0..<300).responseDecodable(of: [UnslpashTopic].self) { response in
-          //  print(response.response?.statusCode)
-            
+    func callRequestTopicImage(api: UnsplashRequest, completionHandler: @escaping ([UnslpashTopic]) -> Void, failHandler: @escaping () -> Void) {
+
+        AF.request(api.endpoint, method: api.method, headers: api.header).validate(statusCode: 0..<300).responseDecodable(of: [UnslpashTopic].self) { response in
             
             switch response.result {
             case .success(let value):
                 completionHandler(value)
-                //dump(value)
             case.failure(let error):
+                failHandler()
                 dump(error)
             }
         }
     }
     
+
 
     func callRequestGetImage(query: String, filter: String, page: Int ,completionHandler: @escaping (UnslpashGetImage) -> Void) {
         let url = "https://api.unsplash.com/search/photos?client_id=\(UnSplashAPI.client_ID)&query=\(query)&order_by=\(filter)&page=\(page)&per_page=20"
