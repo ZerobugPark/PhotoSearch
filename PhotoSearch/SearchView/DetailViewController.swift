@@ -23,6 +23,7 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         getUserDeatil()
     }
     
@@ -33,8 +34,9 @@ final class DetailViewController: UIViewController {
         NetworkManager.shared.callRequest(api: .userDetail(id: id),type: UserDetail.self) { value in
             let userDetail = value
             self.loadData(value: userDetail)
-        } failHandler: {
-            print("")
+        } failHandler: { status in
+            let msg = Error.errorMsg(satus: status)
+            self.showAlert(msg: msg)
         }
     }
     
@@ -59,7 +61,7 @@ final class DetailViewController: UIViewController {
             detailView.descripionResultLables[i].textAlignment = .right
         }
         
-        
+        detailView.informationLable.text = "정보"
         // 정보 레이블
         detailView.descripionResultLables[0].text = "\(result.width) X \(result.height)" // 이미지 크기
         detailView.descripionResultLables[1].text = value.downloads.total.formatted() // 조회수
@@ -82,3 +84,14 @@ final class DetailViewController: UIViewController {
     
 }
 
+extension DetailViewController {
+    
+    private func showAlert(msg: String) {
+        let alert = UIAlertController(title: "안내", message: msg, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "확인", style: .cancel)
+        
+        alert.addAction(ok)
+        present(alert,animated: true)
+        
+    }
+}

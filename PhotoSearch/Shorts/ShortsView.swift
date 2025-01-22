@@ -33,7 +33,7 @@ class ShortsView: BaseView {
     override func configureView() {
         self.collectionView.backgroundColor = .clear
         collectionView.isPagingEnabled = true // 한 페이지씩 넘어가는 효과
-        collectionView.contentInsetAdjustmentBehavior = .never // 네비게이션 영역까지 이미지뷰가 나올 수 있게
+        collectionView.contentInsetAdjustmentBehavior = .never // 네비게이션 영역까지 이미지뷰가 나올 수 있게 -> 인셋 조정하지 않는다.
         //collectionView.bounces = false // 위로 올라가는거 방지
         
     }

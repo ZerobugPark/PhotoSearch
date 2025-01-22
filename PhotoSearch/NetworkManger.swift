@@ -88,15 +88,21 @@ class NetworkManager {
     
     
     func callRequest<T: Decodable>(api: UnsplashRequest,type: T.Type ,completionHandler: @escaping (T) -> Void,
-                                   failHandler: @escaping () -> Void) {
+                                   failHandler: @escaping (Int) -> Void) {
         
         AF.request(api.endpoint, method: api.method,
                    parameters: api.parameter,encoding: URLEncoding(destination: .queryString),headers: api.header).responseDecodable(of: T.self) { response in
+           
             
             switch response.result {
             case .success(let value):
                 completionHandler(value)
             case.failure(let error):
+                if let status = response.response?.statusCode {
+                    failHandler(status)
+                } else {
+                    failHandler(0)
+                }
                 dump(error)
             }
         }

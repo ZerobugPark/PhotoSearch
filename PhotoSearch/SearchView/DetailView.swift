@@ -22,7 +22,7 @@ final class DetailView: BaseView {
     
     let mainImge = CustomImageView(cornerRadius: false)
     
-    private let informationLable =  CustomLabel(boldStyle: true, fontSize: 22)
+    let informationLable =  CustomLabel(boldStyle: true, fontSize: 22)
     
     var descripionLables: [CustomLabel] = []
     var descripionResultLables: [CustomLabel] = []
@@ -128,7 +128,7 @@ final class DetailView: BaseView {
 
         latestLabel.textAlignment = .left
         
-        informationLable.text = "정보"
+        
 
         
         DispatchQueue.main.async {

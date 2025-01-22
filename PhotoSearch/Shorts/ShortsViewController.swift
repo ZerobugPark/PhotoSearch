@@ -31,9 +31,6 @@ class ShortsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "TEST"
-        
-   
         
 //        let appearance = UINavigationBarAppearance()
 //        appearance.configureWithTransparentBackground()
@@ -52,7 +49,7 @@ class ShortsViewController: UIViewController {
         //self.navigationController?.navigationBar.backgroundColor = .clear //네비게이션 바 색상 설정
         
         //edgesForExtendedLayout = .top //없어도 댐
-        view.backgroundColor = .clear
+        //view.backgroundColor = .clear
         
         
         shortsView.collectionView.delegate = self
@@ -68,8 +65,9 @@ class ShortsViewController: UIViewController {
     private func loadRandomImage() {
         NetworkManager.shared.callRequest(api: .randomImgae(count: String(10)), type: [Result].self) { value in
             self.results = value
-        } failHandler: {
-            print("")
+        } failHandler: { status in
+            let msg = Error.errorMsg(satus: status)
+            self.showAlert(msg: msg)
         }
         
     }
@@ -109,5 +107,18 @@ extension ShortsViewController: UICollectionViewDelegateFlowLayout {
         let width = view.frame.size.width
         
         return CGSize(width: width, height: height)
+    }
+}
+
+
+extension ShortsViewController {
+    
+    private func showAlert(msg: String) {
+        let alert = UIAlertController(title: "안내", message: msg, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "확인", style: .cancel)
+        
+        alert.addAction(ok)
+        present(alert,animated: true)
+        
     }
 }

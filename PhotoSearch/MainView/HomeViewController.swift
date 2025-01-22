@@ -34,20 +34,21 @@ class HomeViewController: UIViewController {
             mainView.collectionViews[i].register(TopicCollectionViewCell.self, forCellWithReuseIdentifier: TopicCollectionViewCell.id)
         }
         
-//        NetworkManager.shared.callRequestTopic(api: .topics) { value in
-//            self.topics = value
-//            self.randomTopic()
-//        }
+        //        NetworkManager.shared.callRequestTopic(api: .topics) { value in
+        //            self.topics = value
+        //            self.randomTopic()
+        //        }
         
         NetworkManager.shared.callRequest(api: .topics, type: [TopicList].self) { value in
             self.topics = value
             self.randomTopic()
             print(value)
-        } failHandler: {
-            print("")
+        } failHandler: { status in
+            let msg = Error.errorMsg(satus: status)
+            self.showAlert(msg: msg)
         }
         
-
+        
         
     }
     
@@ -67,14 +68,17 @@ class HomeViewController: UIViewController {
             NetworkManager.shared.callRequest(api: .topicImage(slug: topics[i].slug), type: [UnslpashTopic].self) { value in
                 self.topicDatas[i] = value
                 group.leave()
-
-            } failHandler: {
+                
+            }    failHandler: { status in
+                let msg = Error.errorMsg(satus: status)
+                self.showAlert(msg: msg)
                 group.leave()
             }
+            
+            
         }
         
         group.notify(queue: .main) {
-            print("끝")
             for i in 0..<self.mainView.collectionViews.count
             {
                 self.mainView.collectionViews[i].reloadData()
@@ -85,13 +89,16 @@ class HomeViewController: UIViewController {
         
     }
     
+    private func errorMsg(status: Int) {
+        
+    }
     
 }
 
 // MARK: - CollectionView Delegate
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
+        
         if collectionView.tag == 0 {
             return topicDatas[0].count
         } else if collectionView.tag == 1 {
@@ -145,6 +152,20 @@ extension HomeViewController: UIScrollViewDelegate {
         print(#function)
         
         randomTopic()
+        
+    }
+}
+
+// MARK: - Alert
+
+extension HomeViewController {
+    
+    private func showAlert(msg: String) {
+        let alert = UIAlertController(title: "안내", message: msg, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "확인", style: .cancel)
+        
+        alert.addAction(ok)
+        present(alert,animated: true)
         
     }
 }

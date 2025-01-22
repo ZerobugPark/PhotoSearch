@@ -102,8 +102,9 @@ class SearchViewController: UIViewController {
                 self.searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
             
-        } failHandler: {
-            print("")
+        } failHandler: { status in
+            let msg = Error.errorMsg(satus: status)
+            self.showAlert(msg: msg)
         }
         
         
@@ -164,8 +165,9 @@ class SearchViewController: UIViewController {
                 self.searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
             
-        } failHandler: {
-            print("")
+        } failHandler: { status in
+            let msg = Error.errorMsg(satus: status)
+            self.showAlert(msg: msg)
         }
         previousButtonTag = sender.tag
     }
@@ -223,7 +225,8 @@ extension SearchViewController: UISearchBarDelegate {
         searchView.collectionView.reloadData()
         
         guard let text = searchBar.text?.replacingOccurrences(of: " ", with: ""), !text.isEmpty  else {
-            showAlert()
+            let msg = "1글자 이상의 검색어를 입력해주세요."
+            showAlert(msg: msg)
             // 서치바 원상태로 복귀
             searchView.searchController.isActive = false
             return
@@ -248,8 +251,9 @@ extension SearchViewController: UISearchBarDelegate {
             if self.getInfo.total > 0, !self.getInfo.results.isEmpty {
                 self.searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
-        } failHandler: {
-            print("")
+        } failHandler: { status in
+            let msg = Error.errorMsg(satus: status)
+            self.showAlert(msg: msg)
         }
         
     }
@@ -283,8 +287,9 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
                         self.getInfo = value
                         self.results = self.getInfo.results
                         self.page += 1
-                    } failHandler: {
-                        print("")
+                    } failHandler: { status in
+                        let msg = Error.errorMsg(satus: status)
+                        self.showAlert(msg: msg)
                     }
                  
                 } else {
@@ -293,8 +298,9 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
                         self.results.append(contentsOf: self.getInfo.results)
                         self.page += 1
                     
-                    } failHandler: {
-                        print("")
+                    } failHandler: { status in
+                        let msg = Error.errorMsg(satus: status)
+                        self.showAlert(msg: msg)
                     }
                 }
             }
@@ -305,8 +311,8 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
 
 extension SearchViewController {
     
-    private func showAlert() {
-        let alert = UIAlertController(title: "안내", message: "1글자 이상의 검색어를 입력해주세요.", preferredStyle: .alert)
+    private func showAlert(msg: String) {
+        let alert = UIAlertController(title: "안내", message: msg, preferredStyle: .alert)
         let ok = UIAlertAction(title: "확인", style: .cancel)
         
         alert.addAction(ok)
