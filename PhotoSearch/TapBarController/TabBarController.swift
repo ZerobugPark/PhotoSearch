@@ -7,6 +7,8 @@
 
 import UIKit
 
+var tabBarHeight: CGFloat = 0.0
+
 class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
@@ -14,9 +16,10 @@ class TabBarController: UITabBarController {
         print(#function)
         
         configireTabBarController()
-        //setupTabBarAppearance()
-        configureApperance()
+        setupTabBarAppearance()
+        //configureApperance()
         self.selectedIndex = 1
+        
     }
     
 
@@ -33,6 +36,7 @@ class TabBarController: UITabBarController {
         secondVC.tabBarItem.image = UIImage(systemName: "video")
         secondVC.tabBarItem.selectedImage = UIImage(systemName: "video.fill")
         secondVC.tabBarController?.selectedIndex = 1
+       
         let secondNav = UINavigationController(rootViewController: secondVC)
 
         
@@ -45,7 +49,7 @@ class TabBarController: UITabBarController {
         
         
         
-        setViewControllers([firstNav, secondNav, thirdNav], animated: true)
+        setViewControllers([firstNav, secondNav, thirdNav], animated: false)
   
     }
     
@@ -53,10 +57,10 @@ class TabBarController: UITabBarController {
     func setupTabBarAppearance() {
         let appearance = UITabBarAppearance()
         appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = .blue
-        tabBar.standardAppearance = appearance
-        tabBar.scrollEdgeAppearance = appearance
-        tabBar.tintColor = .black
+        appearance.backgroundColor = .red
+    //    tabBar.standardAppearance = appearance
+      //  tabBar.scrollEdgeAppearance = appearance
+    
 
     }
     
@@ -87,6 +91,6 @@ class TabBarController: UITabBarController {
 extension TabBarController: UITabBarControllerDelegate {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        
+    
     }
 }

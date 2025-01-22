@@ -15,6 +15,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
         configureHierarchy()
         configureLayout()
         configureView()
+        layoutSubviews()
         
     }
     
@@ -23,6 +24,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
     func configureLayout() { }
     
     func configureView() { }
+
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {

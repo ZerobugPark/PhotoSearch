@@ -23,8 +23,7 @@ class CustomImageView: UIImageView {
     
     init() {
         super.init(frame: .zero)
-        
-        //clipsToBounds = true
+        clipsToBounds = true
         
     }
         

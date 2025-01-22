@@ -129,6 +129,7 @@ class DetailView: BaseView {
         latestLabel.textAlignment = .left
         
         informationLable.text = "정보"
+
         
         DispatchQueue.main.async {
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2

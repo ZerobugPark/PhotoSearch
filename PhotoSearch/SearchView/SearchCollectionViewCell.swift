@@ -28,9 +28,8 @@ class SearchCollectionViewCell: BaseCollectionViewCell {
         
         imageView.snp.makeConstraints { make in
             make.size.equalTo(contentView)
-         
-            
         }
+        
         likeButton.snp.makeConstraints { make in
             make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(8)
             make.bottom.equalTo(contentView.safeAreaLayoutGuide).inset(8)

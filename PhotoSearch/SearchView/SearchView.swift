@@ -40,6 +40,7 @@ class SearchView: BaseView {
             colorButtons.append(button)
             stackView.addArrangedSubview(colorButtons[i])
         }
+        
       
         
     }

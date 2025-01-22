@@ -47,6 +47,7 @@ class SearchViewController: UIViewController {
         navigationItem.title = "SEARCH PHOTO"
         navigationItem.searchController = searchView.searchController
         
+        
         navigationItem.backButtonTitle = ""
         
         searchView.collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.id)

@@ -70,8 +70,7 @@ class DetailViewController: UIViewController {
         // 서버에서 주는 형태 (ISO규약에 따른 문자열 형태)
         // isoDate - Iso 형태의 문자열을 Iso 형태의 날짜 형식으로 변환
         guard let isoDate = ISO8601DateFormatter().date(from: releaseDate) else { return "" }
-        
-        print(isoDate)
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy. MMM dd"
         let dateString = dateFormatter.string(from: isoDate)
