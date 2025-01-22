@@ -7,12 +7,12 @@
 
 import UIKit
 
-class SearchCollectionViewCell: BaseCollectionViewCell {
+final class SearchCollectionViewCell: BaseCollectionViewCell {
     
     static let id = "SearchCollectionViewCell"
     
-    let imageView = CustomImageView(cornerRadius: false)
-    let likeButton = CustomButton(imgName: "star.fill")
+    private let imageView = CustomImageView(cornerRadius: false)
+    private let likeButton = CustomButton(imgName: "star.fill")
 
     
     override func configureHierarchy() {

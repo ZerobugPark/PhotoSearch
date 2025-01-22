@@ -9,13 +9,13 @@ import UIKit
 
 import SnapKit
 
-class HomeView: BaseView {
+final class HomeView: BaseView {
     
-    let titleLabel = CustomLabel(boldStyle: true, fontSize: 25)
+    private let titleLabel = CustomLabel(boldStyle: true, fontSize: 25)
     
     let scrollView = UIScrollView()
 
-    let stackView = UIStackView()
+    private let stackView = UIStackView()
     
     var topicViews: [UIView] = []
     

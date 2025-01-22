@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomLabel: UILabel {
+final class CustomLabel: UILabel {
     
     
     init(boldStyle: Bool, fontSize: CGFloat) {

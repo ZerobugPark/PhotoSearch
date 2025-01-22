@@ -49,9 +49,6 @@ class ShortsCollectionViewCell: BaseCollectionViewCell {
             make.bottom.equalTo(self.safeAreaLayoutGuide).inset(12)
             make.leading.equalTo(profileImageView.snp.trailing).offset(16)
         }
-        
-   
-        
     }
     
     override func configureView() {

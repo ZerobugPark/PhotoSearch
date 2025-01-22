@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class DetailView: BaseView {
+final class DetailView: BaseView {
     
     
     
@@ -18,11 +18,11 @@ class DetailView: BaseView {
     let dateLable = CustomLabel(boldStyle: true, fontSize: 12)
     let latestLabel = CustomLabel(boldStyle: true, fontSize: 12, color: .systemGray2)
     
-    let stackView = UIStackView()
+    private let stackView = UIStackView()
     
     let mainImge = CustomImageView(cornerRadius: false)
     
-    let informationLable =  CustomLabel(boldStyle: true, fontSize: 22)
+    private let informationLable =  CustomLabel(boldStyle: true, fontSize: 22)
     
     var descripionLables: [CustomLabel] = []
     var descripionResultLables: [CustomLabel] = []

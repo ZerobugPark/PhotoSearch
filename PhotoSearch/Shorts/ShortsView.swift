@@ -33,8 +33,8 @@ class ShortsView: BaseView {
     override func configureView() {
         self.collectionView.backgroundColor = .clear
         collectionView.isPagingEnabled = true // 한 페이지씩 넘어가는 효과
-        collectionView.contentInsetAdjustmentBehavior = .never
-        //collectionView.bounces = false
+        collectionView.contentInsetAdjustmentBehavior = .never // 네비게이션 영역까지 이미지뷰가 나올 수 있게
+        //collectionView.bounces = false // 위로 올라가는거 방지
         
     }
     
@@ -56,13 +56,4 @@ class ShortsView: BaseView {
         return layout
     }
     
-}
-
-extension ShortsView {
-    var safeAreaHeight: CGFloat {
-        if #available(iOS 11, *) {
-         return safeAreaLayoutGuide.layoutFrame.size.height
-        }
-        return bounds.height
-   }
 }

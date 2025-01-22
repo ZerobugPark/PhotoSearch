@@ -9,10 +9,10 @@ import UIKit
 
 import Kingfisher
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     
     
-    let detailView = DetailView()
+    private let detailView = DetailView()
     
     var resultInfo: Result?
     
@@ -30,9 +30,11 @@ class DetailViewController: UIViewController {
     private func getUserDeatil() {
         guard let id = resultInfo?.id else { return }
         
-        NetworkManager.shared.callRequestGetUserDetail(api: .userDetail(id: id)) { value in
+        NetworkManager.shared.callRequest(api: .userDetail(id: id),type: UserDetail.self) { value in
             let userDetail = value
             self.loadData(value: userDetail)
+        } failHandler: {
+            print("")
         }
     }
     

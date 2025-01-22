@@ -66,23 +66,13 @@ class ShortsViewController: UIViewController {
     
     
     private func loadRandomImage() {
-        NetworkManager.shared.callRequestRandomImage(api: .randomImgae(count: String(10))) { value in
+        NetworkManager.shared.callRequest(api: .randomImgae(count: String(10)), type: [Result].self) { value in
             self.results = value
+        } failHandler: {
+            print("")
         }
         
     }
-    
-    //    override func viewWillAppear(_ animated: Bool) {
-    //            super.viewWillAppear(animated)
-    //            self.navigationController?.setNavigationBarHidden(true, animated: animated)
-    //
-    //        }
-    //
-    //
-    //    override func viewWillDisappear(_ animated: Bool) {
-    //        super.viewWillDisappear(animated)
-    //        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-    //    }
     
 }
 

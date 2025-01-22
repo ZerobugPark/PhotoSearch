@@ -86,10 +86,12 @@ class NetworkManager {
     
     private init() { }
     
-    func callRequestTopic(api: UnsplashRequest,completionHandler: @escaping ([TopicList]) -> Void) {
+    
+    func callRequest<T: Decodable>(api: UnsplashRequest,type: T.Type ,completionHandler: @escaping (T) -> Void,
+                                   failHandler: @escaping () -> Void) {
         
         AF.request(api.endpoint, method: api.method,
-                   parameters: api.parameter,encoding: URLEncoding(destination: .queryString),headers: api.header).responseDecodable(of: [TopicList].self) { response in
+                   parameters: api.parameter,encoding: URLEncoding(destination: .queryString),headers: api.header).responseDecodable(of: T.self) { response in
             
             switch response.result {
             case .success(let value):
@@ -100,81 +102,101 @@ class NetworkManager {
         }
     }
     
-    func callRequestTopicImage(api: UnsplashRequest, completionHandler: @escaping ([UnslpashTopic]) -> Void, failHandler: @escaping () -> Void) {
-        
-        AF.request(api.endpoint, method: api.method,
-                   parameters: api.parameter,encoding: URLEncoding(destination: .queryString), headers: api.header).validate(statusCode: 0..<300).responseDecodable(of: [UnslpashTopic].self) { response in
-            
-            switch response.result {
-            case .success(let value):
-                completionHandler(value)
-            case.failure(let error):
-                failHandler()
-                dump(error)
-            }
-        }
-    }
-    
-    
-    
-    func callRequestGetImage(api: UnsplashRequest, completionHandler: @escaping (UnslpashGetImage) -> Void) {
-        
-        AF.request(api.endpoint, method: api.method,
-                   parameters: api.parameter,encoding: URLEncoding(destination: .queryString),headers: api.header).responseDecodable(of: UnslpashGetImage.self) { response in
-            //print(response.response?.statusCode)
-            
-            switch response.result {
-            case .success(let value):
-                //dump(value)
-                completionHandler(value)
-            case.failure(let error):
-                dump(error)
-            }
-        }
-    }
-    
-    func callRequestGetImageWithColor(api: UnsplashRequest, completionHandler: @escaping (UnslpashGetImage) -> Void) {
-        
-        AF.request(api.endpoint, method: api.method,
-                   parameters: api.parameter,encoding: URLEncoding(destination: .queryString),headers: api.header).validate(statusCode: 0..<300).responseDecodable(of: UnslpashGetImage.self) { response in
-          
-            switch response.result {
-            case .success(let value):
-                completionHandler(value)
-            case.failure(let error):
-                dump(error)
-            }
-        }
-    }
-    
-    func callRequestGetUserDetail(api: UnsplashRequest, completionHandler: @escaping (UserDetail) -> Void) {
-       
-        AF.request(api.endpoint, method: api.method, headers: api.header).validate(statusCode: 0..<300).responseDecodable(of: UserDetail.self) { response in
 
-            switch response.result {
-            case .success(let value):
-                completionHandler(value)
-            case.failure(let error):
-                dump(error)
-            }
-        }
-    }
-    
-    func callRequestRandomImage(api: UnsplashRequest, completionHandler: @escaping ([Result]) -> Void) {
-       
-        AF.request(api.endpoint, method: api.method,
-                   parameters: api.parameter,encoding: URLEncoding(destination: .queryString),headers: api.header).validate(statusCode: 0..<300).responseDecodable(of: [Result].self) { response in
-
-            switch response.result {
-            case .success(let value):
-                completionHandler(value)
-            case.failure(let error):
-                dump(error)
-            }
-        }
-    }
-    
     
     
     
 }
+
+
+// MARK: - 백업용
+
+/*
+func callRequestTopic(api: UnsplashRequest,completionHandler: @escaping ([TopicList]) -> Void) {
+    
+    AF.request(api.endpoint, method: api.method,
+               parameters: api.parameter,encoding: URLEncoding(destination: .queryString),headers: api.header).responseDecodable(of: [TopicList].self) { response in
+        
+        switch response.result {
+        case .success(let value):
+            completionHandler(value)
+        case.failure(let error):
+            dump(error)
+        }
+    }
+}
+
+func callRequestTopicImage(api: UnsplashRequest, completionHandler: @escaping ([UnslpashTopic]) -> Void, failHandler: @escaping () -> Void) {
+    
+    AF.request(api.endpoint, method: api.method,
+               parameters: api.parameter,encoding: URLEncoding(destination: .queryString), headers: api.header).validate(statusCode: 0..<300).responseDecodable(of: [UnslpashTopic].self) { response in
+        
+        switch response.result {
+        case .success(let value):
+            completionHandler(value)
+        case.failure(let error):
+            failHandler()
+            dump(error)
+        }
+    }
+}
+
+
+
+func callRequestGetImage(api: UnsplashRequest, completionHandler: @escaping (UnslpashGetImage) -> Void) {
+    
+    AF.request(api.endpoint, method: api.method,
+               parameters: api.parameter,encoding: URLEncoding(destination: .queryString),headers: api.header).responseDecodable(of: UnslpashGetImage.self) { response in
+        //print(response.response?.statusCode)
+        
+        switch response.result {
+        case .success(let value):
+            //dump(value)
+            completionHandler(value)
+        case.failure(let error):
+            dump(error)
+        }
+    }
+}
+
+func callRequestGetImageWithColor(api: UnsplashRequest, completionHandler: @escaping (UnslpashGetImage) -> Void) {
+    
+    AF.request(api.endpoint, method: api.method,
+               parameters: api.parameter,encoding: URLEncoding(destination: .queryString),headers: api.header).validate(statusCode: 0..<300).responseDecodable(of: UnslpashGetImage.self) { response in
+      
+        switch response.result {
+        case .success(let value):
+            completionHandler(value)
+        case.failure(let error):
+            dump(error)
+        }
+    }
+}
+
+func callRequestGetUserDetail(api: UnsplashRequest, completionHandler: @escaping (UserDetail) -> Void) {
+   
+    AF.request(api.endpoint, method: api.method, headers: api.header).validate(statusCode: 0..<300).responseDecodable(of: UserDetail.self) { response in
+
+        switch response.result {
+        case .success(let value):
+            completionHandler(value)
+        case.failure(let error):
+            dump(error)
+        }
+    }
+}
+
+func callRequestRandomImage(api: UnsplashRequest, completionHandler: @escaping ([Result]) -> Void) {
+   
+    AF.request(api.endpoint, method: api.method,
+               parameters: api.parameter,encoding: URLEncoding(destination: .queryString),headers: api.header).validate(statusCode: 0..<300).responseDecodable(of: [Result].self) { response in
+
+        switch response.result {
+        case .success(let value):
+            completionHandler(value)
+        case.failure(let error):
+            dump(error)
+        }
+    }
+}
+*/

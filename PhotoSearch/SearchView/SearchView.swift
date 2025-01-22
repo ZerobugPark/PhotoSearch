@@ -9,11 +9,11 @@ import UIKit
 
 import SnapKit
 
-class SearchView: BaseView {
+final class SearchView: BaseView {
  
     let searchController = UISearchController()
-    let stackView = UIStackView()
-    let scrollView = UIScrollView()
+    private let stackView = UIStackView()
+    private let scrollView = UIScrollView()
     let label = CustomLabel(boldStyle: true, fontSize: 20)
     
     var colorButtons: [CustomButton] = []

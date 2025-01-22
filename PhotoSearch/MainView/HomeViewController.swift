@@ -12,11 +12,11 @@ class HomeViewController: UIViewController {
     
     static let id = "HomeViewController"
     
-    let mainView = HomeView()
+    private let mainView = HomeView()
     
-    var topics: [TopicList] = []
+    private var topics: [TopicList] = []
     
-    var topicDatas: [[UnslpashTopic]] = [[],[],[]]
+    private var topicDatas: [[UnslpashTopic]] = [[],[],[]]
     
     override func loadView() {
         view = mainView
@@ -34,16 +34,25 @@ class HomeViewController: UIViewController {
             mainView.collectionViews[i].register(TopicCollectionViewCell.self, forCellWithReuseIdentifier: TopicCollectionViewCell.id)
         }
         
-        NetworkManager.shared.callRequestTopic(api: .topics) { value in
+//        NetworkManager.shared.callRequestTopic(api: .topics) { value in
+//            self.topics = value
+//            self.randomTopic()
+//        }
+        
+        NetworkManager.shared.callRequest(api: .topics, type: [TopicList].self) { value in
             self.topics = value
             self.randomTopic()
+            print(value)
+        } failHandler: {
+            print("")
         }
         
+
         
     }
     
     
-    func randomTopic() {
+    private func randomTopic() {
         topics = topics.shuffled()
         
         let group = DispatchGroup()
@@ -55,7 +64,7 @@ class HomeViewController: UIViewController {
             print(topics[i].slug)
             mainView.topicLabels[i].text = topic
             
-            NetworkManager.shared.callRequestTopicImage(api: .topicImage(slug: topics[i].slug)) { value in
+            NetworkManager.shared.callRequest(api: .topicImage(slug: topics[i].slug), type: [UnslpashTopic].self) { value in
                 self.topicDatas[i] = value
                 group.leave()
 

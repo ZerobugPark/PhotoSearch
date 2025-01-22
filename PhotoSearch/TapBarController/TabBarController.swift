@@ -7,9 +7,8 @@
 
 import UIKit
 
-var tabBarHeight: CGFloat = 0.0
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +22,7 @@ class TabBarController: UITabBarController {
     }
     
 
-    func configireTabBarController() {
+    private func configireTabBarController() {
         let firstVC = HomeViewController()
         firstVC.tabBarItem.image = UIImage(systemName: "photo.on.rectangle")
         firstVC.tabBarItem.selectedImage = UIImage(systemName: "photo.fill.on.rectangle.fill")
@@ -54,7 +53,7 @@ class TabBarController: UITabBarController {
     }
     
     
-    func setupTabBarAppearance() {
+    private func setupTabBarAppearance() {
         let appearance = UITabBarAppearance()
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = .red
@@ -65,7 +64,7 @@ class TabBarController: UITabBarController {
     }
     
     // 네비게이션 컨트롤러 및 탭바 공통 적용
-    func configureApperance() {
+    private func configureApperance() {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.backgroundColor = .white

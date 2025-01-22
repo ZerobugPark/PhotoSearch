@@ -29,7 +29,7 @@ class SearchViewController: UIViewController {
     private var colorFilter: String = ""
     private var previousButtonTag: Int?
     
-    var searchText = ""
+    private var searchText = ""
     
     override func loadView() {
         view = searchView
@@ -86,7 +86,7 @@ class SearchViewController: UIViewController {
         searchView.filterButton.setTitle(title, for: .normal)
         filter = filter == "relevant" ? "latest" : "relevant"
         print(searchText)
-        NetworkManager.shared.callRequestGetImage(api: .searchImage(query: searchText, filter: filter, page: String(page))) { value in
+        NetworkManager.shared.callRequest(api: .searchImage(query: searchText, filter: filter, page: String(page)), type: UnslpashGetImage.self) { value in
            
             self.getInfo = value
             
@@ -102,6 +102,8 @@ class SearchViewController: UIViewController {
                 self.searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
             
+        } failHandler: {
+            print("")
         }
         
         
@@ -145,8 +147,8 @@ class SearchViewController: UIViewController {
         case 9: colorFilter = "blue"
         default: colorFilter = "red"
         }
-        
-        NetworkManager.shared.callRequestGetImageWithColor(api: .searchImageWithColor(query: searchText, filter: filter, page: String(page), color: colorFilter)) { value in
+
+        NetworkManager.shared.callRequest(api: .searchImageWithColor(query: searchText, filter: filter, page: String(page), color: colorFilter), type: UnslpashGetImage.self ) { value in
            
             self.getInfo = value
             
@@ -162,6 +164,8 @@ class SearchViewController: UIViewController {
                 self.searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
             
+        } failHandler: {
+            print("")
         }
         previousButtonTag = sender.tag
     }
@@ -228,7 +232,7 @@ extension SearchViewController: UISearchBarDelegate {
         searchText = text
         page = 1
         
-        NetworkManager.shared.callRequestGetImage(api: .searchImage(query: searchText, filter: filter, page: String(page))) { value in
+        NetworkManager.shared.callRequest(api: .searchImage(query: searchText, filter: filter, page: String(page)), type: UnslpashGetImage.self) { value in
            
             self.getInfo = value
              
@@ -244,6 +248,8 @@ extension SearchViewController: UISearchBarDelegate {
             if self.getInfo.total > 0, !self.getInfo.results.isEmpty {
                 self.searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
+        } failHandler: {
+            print("")
         }
         
     }
@@ -273,18 +279,22 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
         for item in indexPaths {
             if results.count - 2 == item.item {
                 if previousButtonTag != nil {
-                    NetworkManager.shared.callRequestGetImageWithColor(api: .searchImageWithColor(query: searchText, filter: filter, page: String(page), color: colorFilter)) { value in
+                    NetworkManager.shared.callRequest(api: .searchImageWithColor(query: searchText, filter: filter, page: String(page), color: colorFilter), type: UnslpashGetImage.self) { value in
                         self.getInfo = value
                         self.results = self.getInfo.results
                         self.page += 1
+                    } failHandler: {
+                        print("")
                     }
                  
                 } else {
-                    NetworkManager.shared.callRequestGetImage(api: .searchImage(query: searchText, filter: filter, page: String(page))){ value in
+                    NetworkManager.shared.callRequest(api: .searchImage(query: searchText, filter: filter, page: String(page)), type: UnslpashGetImage.self){ value in
                         self.getInfo = value
                         self.results.append(contentsOf: self.getInfo.results)
                         self.page += 1
                     
+                    } failHandler: {
+                        print("")
                     }
                 }
             }
