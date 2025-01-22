@@ -12,12 +12,11 @@ final class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(#function)
         
         configireTabBarController()
         setupTabBarAppearance()
         //configureApperance()
-        self.selectedIndex = 1
+        self.selectedIndex = 2
         
     }
     

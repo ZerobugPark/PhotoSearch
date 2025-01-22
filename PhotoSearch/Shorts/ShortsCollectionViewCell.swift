@@ -61,7 +61,6 @@ class ShortsCollectionViewCell: BaseCollectionViewCell {
         dateLable.textColor = .white
         
         DispatchQueue.main.async {
-            //print(self.profileImageView.frame.width)
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
             self.profileImageView.clipsToBounds = true
         }

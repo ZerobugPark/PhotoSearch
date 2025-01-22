@@ -17,40 +17,20 @@ enum Error: Int {
     case something2 = 503
     
     
-    var msg: String {
-        get {
-            switch self {
-            case .badRequest:
-                return "The request was unacceptable, often due to missing a required parameter"
-            case .unauthorized:
-                return "Invalid Access Token"
-            case .forbidden:
-                return "Missing permissions to perform request"
-            case .notFound:
-                return "The requested resource doesn’t exist"
-            case .something:
-                return "Something went wrong on our end"
-            case .something2:
-                return "Something went wrong on our end"
-                
-            }
-        }
-    }
-    
     static func errorMsg(satus: Int) -> String {
         switch satus {
         case 400:
-            return "The request was unacceptable, often due to missing a required parameter"
+            return "[Error: 400] The request was unacceptable, often due to missing a required parameter"
         case 401:
-            return "Invalid Access Token"
+            return "[Error: 401] Invalid Access Token"
         case 403:
-            return "Missing permissions to perform request"
+            return "[Error: 403] Missing permissions to perform request"
         case 404:
-            return "The requested resource doesn’t exist"
+            return "[Error: 404] The requested resource doesn’t exist"
         case 500:
-            return "Something went wrong on our end"
+            return "[Error: 500] Something went wrong on our end"
         case 503:
-            return "Something went wrong on our end"
+            return "[Error: 503] Something went wrong on our end"
         default:
             return "The Status is unknown"
         }

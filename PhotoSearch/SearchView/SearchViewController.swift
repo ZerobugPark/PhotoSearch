@@ -10,7 +10,6 @@ import UIKit
 class SearchViewController: UIViewController {
 
     static let id = "SerachViewController"
-    
     private var results: [Result] = [] {
         didSet {
             self.searchView.collectionView.reloadData()
@@ -61,8 +60,17 @@ class SearchViewController: UIViewController {
         // 서치바 네비게이션 컨트롤러 영역 미침범
         searchView.searchController.hidesNavigationBarDuringPresentation = false
         buttonAddTarget()
+    
+        searchView.searchController.searchBar.setShowsCancelButton(false, animated: false)
 
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchView.searchController.searchBar.becomeFirstResponder()
+    }
+    
+    
     
     private func buttonAddTarget() {
         
@@ -79,14 +87,21 @@ class SearchViewController: UIViewController {
        
         page = 1 // 페이지 초기화
         
-        previousButtonTag = nil // 스위치버튼 이전 값 초기화
-        changeButtonColor(status: false) // 스위버튼 컬러 초기화
         
         let title = searchView.filterButton.titleLabel?.text == "관련순" ? "최신순" : "관련순"
         searchView.filterButton.setTitle(title, for: .normal)
         filter = filter == "relevant" ? "latest" : "relevant"
-        print(searchText)
-        NetworkManager.shared.callRequest(api: .searchImage(query: searchText, filter: filter, page: String(page)), type: UnslpashGetImage.self) { value in
+       
+        var api: UnsplashRequest
+        
+        if previousButtonTag != nil {
+            api = UnsplashRequest.searchImageWithColor(query: searchText, filter: filter, page: String(page), color: colorFilter)
+        } else {
+            api = UnsplashRequest.searchImage(query: searchText, filter: filter, page: String(page))
+        }
+            
+        
+        NetworkManager.shared.callRequest(api: api, type: UnslpashGetImage.self) { value in
            
             self.getInfo = value
             
@@ -109,6 +124,7 @@ class SearchViewController: UIViewController {
         
         
     }
+    
     
     
     @objc private func colorButtonTapped(_ sender: UIButton) {
@@ -205,7 +221,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(#function,indexPath)
+        
         
         let vc = DetailViewController()
         vc.resultInfo = results[indexPath.item]

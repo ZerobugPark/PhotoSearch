@@ -51,6 +51,7 @@ class ShortsViewController: UIViewController {
         //edgesForExtendedLayout = .top //없어도 댐
         //view.backgroundColor = .clear
         
+        navigationItem.backButtonTitle = ""
         
         shortsView.collectionView.delegate = self
         shortsView.collectionView.dataSource = self

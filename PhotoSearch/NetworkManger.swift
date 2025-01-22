@@ -72,12 +72,9 @@ enum UnsplashRequest {
         default:
             return nil
         }
-        
     }
     
-    
 }
-
 
 
 class NetworkManager {
@@ -116,7 +113,6 @@ class NetworkManager {
 
 
 // MARK: - 백업용
-
 /*
 func callRequestTopic(api: UnsplashRequest,completionHandler: @escaping ([TopicList]) -> Void) {
     

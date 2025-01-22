@@ -33,16 +33,10 @@ class HomeViewController: UIViewController {
             mainView.collectionViews[i].tag = i
             mainView.collectionViews[i].register(TopicCollectionViewCell.self, forCellWithReuseIdentifier: TopicCollectionViewCell.id)
         }
-        
-        //        NetworkManager.shared.callRequestTopic(api: .topics) { value in
-        //            self.topics = value
-        //            self.randomTopic()
-        //        }
-        
+
         NetworkManager.shared.callRequest(api: .topics, type: [TopicList].self) { value in
             self.topics = value
             self.randomTopic()
-            print(value)
         } failHandler: { status in
             let msg = Error.errorMsg(satus: status)
             self.showAlert(msg: msg)
@@ -62,7 +56,7 @@ class HomeViewController: UIViewController {
         for i in 0..<mainView.collectionViews.count {
             group.enter()
             let topic = TitleEnum(rawValue: topics[i].slug)?.title ?? "일치하는 케이스가 없습니다"
-            print(topics[i].slug)
+            //print(topics[i].slug)
             mainView.topicLabels[i].text = topic
             
             NetworkManager.shared.callRequest(api: .topicImage(slug: topics[i].slug), type: [UnslpashTopic].self) { value in
@@ -110,8 +104,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
     }
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         
@@ -136,23 +128,15 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         } else {
             return UICollectionViewCell()
         }
-        
-        
-        
+      
     }
-    
-    
-    
 }
 
 // MARK: - ScrollViewDelegate Delegate
 extension HomeViewController: UIScrollViewDelegate {
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        print(#function)
-        
         randomTopic()
-        
     }
 }
 
