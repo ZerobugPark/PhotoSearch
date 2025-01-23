@@ -7,9 +7,9 @@
 
 import UIKit
 
-class OnboardingViewController: UIViewController {
+final class OnboardingViewController: UIViewController {
 
-    let button = UIButton()
+    private let button = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +23,22 @@ class OnboardingViewController: UIViewController {
         button.backgroundColor = .white
         button.setTitleColor(.darkGray, for: .normal)
         button.setTitle("시작하기", for: .normal)
+        
+        button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+    }
+    deinit{
+        //print("소멸되었습니다.")
+    }
+    
+    @objc private func startButtonTapped(_ sender: UIButton){
+        
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else { return }
+        
+        
+        window.rootViewController = TabBarController()
+        window.makeKeyAndVisible()
+        
+    
     }
 
 }

@@ -16,7 +16,7 @@ final class TabBarController: UITabBarController {
         configireTabBarController()
         setupTabBarAppearance()
         //configureApperance()
-        self.selectedIndex = 2
+        self.selectedIndex = 3
         
     }
     
@@ -45,9 +45,15 @@ final class TabBarController: UITabBarController {
         thirdVC.tabBarController?.selectedIndex = 2
         let thirdNav = UINavigationController(rootViewController: thirdVC)
         
+        let fourthVC = ProfileViewController()
+        fourthVC.tabBarItem.image = UIImage(systemName: "person.crop.circle")
+        fourthVC.tabBarItem.selectedImage = UIImage(systemName: "person.crop.circle.fill")
+        fourthVC.tabBarController?.selectedIndex = 3
+        let fourthNav = UINavigationController(rootViewController: fourthVC)
         
         
-        setViewControllers([firstNav, secondNav, thirdNav], animated: false)
+        
+        setViewControllers([firstNav, secondNav, thirdNav, fourthNav], animated: false)
   
     }
     

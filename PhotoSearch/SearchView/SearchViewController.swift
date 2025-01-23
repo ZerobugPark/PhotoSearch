@@ -21,7 +21,7 @@ class SearchViewController: UIViewController {
                                                 
     private var page = 1
     
-    private let searchView = SearchView()
+    private var searchView = SearchView()
     
     private var filter: String = "relevant"
     
@@ -46,7 +46,7 @@ class SearchViewController: UIViewController {
         navigationItem.title = "SEARCH PHOTO"
         navigationItem.searchController = searchView.searchController
         
-        
+    
         navigationItem.backButtonTitle = ""
         
         searchView.collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.id)

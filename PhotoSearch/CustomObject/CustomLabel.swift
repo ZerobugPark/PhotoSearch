@@ -15,6 +15,16 @@ final class CustomLabel: UILabel {
         
         font = boldStyle ? .boldSystemFont(ofSize: fontSize) : .systemFont(ofSize: fontSize)
         
+        
+    }
+    
+    init(title: String) {
+        super.init(frame: .zero)
+        
+        text = title
+        font = .systemFont(ofSize: 15)
+        textAlignment = .right
+        textColor = .lightGray
     }
     
     init(boldStyle: Bool, fontSize: CGFloat, color: UIColor) {

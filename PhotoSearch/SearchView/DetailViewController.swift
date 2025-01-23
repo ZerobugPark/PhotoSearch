@@ -12,7 +12,7 @@ import Kingfisher
 final class DetailViewController: UIViewController {
     
     
-    private let detailView = DetailView()
+    private var detailView = DetailView()
     
     var resultInfo: Result?
     

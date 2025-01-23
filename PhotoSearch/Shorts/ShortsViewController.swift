@@ -13,7 +13,7 @@ class ShortsViewController: UIViewController {
     static var id = "ShortsViewController"
     
     
-    let shortsView = ShortsView()
+    private var shortsView = ShortsView()
     
     var results: [Result] = [] {
         didSet {
