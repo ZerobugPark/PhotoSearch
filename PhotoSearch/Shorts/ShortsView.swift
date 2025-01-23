@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 
-class ShortsView: BaseView {
+final class ShortsView: BaseView {
 
 
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ShortsViewController: UIViewController {
+final class ShortsViewController: UIViewController {
     
     static var id = "ShortsViewController"
     
@@ -20,8 +20,6 @@ class ShortsViewController: UIViewController {
             shortsView.collectionView.reloadData()
         }
     }
-    
-    var bottom: CGFloat = 0
     
     override func loadView() {
         view = shortsView

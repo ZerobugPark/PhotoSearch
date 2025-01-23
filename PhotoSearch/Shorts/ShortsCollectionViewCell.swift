@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 import SnapKit
 
-class ShortsCollectionViewCell: BaseCollectionViewCell {
+final class ShortsCollectionViewCell: BaseCollectionViewCell {
     
     static let id = "ShortsCollectionViewCell"
     
