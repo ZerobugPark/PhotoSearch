@@ -17,13 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let scene = (scene as? UIWindowScene) else { return }
         
-        window = UIWindow(windowScene: scene)
-        if let status = UserDefaults.standard.string(forKey: "UserStatus"), status == "Login"{
-            window?.rootViewController = TabBarController()
-        } else {
-            window?.rootViewController = OnboardingViewController()
-        }
-        
+   
+        window?.rootViewController = TabBarController()
         window?.makeKeyAndVisible()
     }
 
