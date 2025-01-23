@@ -17,11 +17,6 @@ final class CustomButton: UIButton {
         backgroundColor = .clear
 
     }
-    init(title: String) {
-        super.init(frame: .zero)
-        setTitle(title, for: .normal)
-        setTitleColor(.black, for: .normal)
-    }
     
     init(color: UIColor, tagNum: Int){
         super.init(frame: .zero)

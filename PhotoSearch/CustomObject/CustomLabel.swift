@@ -18,15 +18,6 @@ final class CustomLabel: UILabel {
         
     }
     
-    init(title: String) {
-        super.init(frame: .zero)
-        
-        text = title
-        font = .systemFont(ofSize: 15)
-        textAlignment = .right
-        textColor = .lightGray
-    }
-    
     init(boldStyle: Bool, fontSize: CGFloat, color: UIColor) {
         super.init(frame: .zero)
         
