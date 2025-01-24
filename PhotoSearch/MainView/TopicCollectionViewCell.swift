@@ -9,7 +9,7 @@ import UIKit
 
 import Kingfisher
 
-class TopicCollectionViewCell: BaseCollectionViewCell {
+final class TopicCollectionViewCell: BaseCollectionViewCell {
     
     static let id = "TopicCollectionViewCell"
     

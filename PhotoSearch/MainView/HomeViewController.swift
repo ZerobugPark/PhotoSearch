@@ -8,7 +8,7 @@
 import UIKit
 
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     
     static let id = "HomeViewController"
     
@@ -33,7 +33,7 @@ class HomeViewController: UIViewController {
             mainView.collectionViews[i].tag = i
             mainView.collectionViews[i].register(TopicCollectionViewCell.self, forCellWithReuseIdentifier: TopicCollectionViewCell.id)
         }
-
+        
         NetworkManager.shared.callRequest(api: .topics, type: [TopicList].self) { value in
             self.topics = value
             self.randomTopic()
@@ -75,8 +75,11 @@ class HomeViewController: UIViewController {
         group.notify(queue: .main) {
             for i in 0..<self.mainView.collectionViews.count
             {
-                self.mainView.collectionViews[i].reloadData()
-                self.mainView.collectionViews[i].scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
+                if self.topicDatas[i].count != 0 {
+                    
+                    self.mainView.collectionViews[i].reloadData()
+                    self.mainView.collectionViews[i].scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
+                }
             }
             
         }
@@ -93,42 +96,54 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if collectionView.tag == 0 {
-            return topicDatas[0].count
-        } else if collectionView.tag == 1 {
-            return topicDatas[1].count
-        } else if collectionView.tag == 2 {
-            return topicDatas[2].count
-        } else {
-            return 0
-        }
+        
+        //이것도 줄일 수 있네
+        
+        //        if collectionView.tag == 0 {
+        //            return topicDatas[0].count // 결국 같은 건데, 왜 리턴을 따로 했을까 ㅋㅋㅋㅋ
+        //        } else if collectionView.tag == 1 {
+        //            return topicDatas[1].count
+        //        } else if collectionView.tag == 2 {
+        //            return topicDatas[2].count
+        //        } else {
+        //            return 0
+        //        }
+        
+        return topicDatas[collectionView.tag].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         
-        if collectionView.tag == 0 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCollectionViewCell.id, for: indexPath) as? TopicCollectionViewCell  else { return UICollectionViewCell() }
-            if topicDatas[0].count != 0 {
-                cell.setup(data: topicDatas[0][indexPath.item])
-            }
-            return cell
-        } else if  collectionView.tag == 1 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCollectionViewCell.id, for: indexPath) as? TopicCollectionViewCell else { return UICollectionViewCell() }
-            if topicDatas[1].count != 0 {
-                cell.setup(data: topicDatas[1][indexPath.item])
-            }
-            return cell
-        } else if collectionView.tag == 2 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCollectionViewCell.id, for: indexPath) as? TopicCollectionViewCell else { return UICollectionViewCell() }
-            if topicDatas[2].count != 0 {
-                cell.setup(data: topicDatas[2][indexPath.item])
-            }
-            return cell
-        } else {
-            return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCollectionViewCell.id, for: indexPath) as? TopicCollectionViewCell  else { return UICollectionViewCell() }
+        if topicDatas[collectionView.tag].count != 0 {
+            cell.setup(data: topicDatas[collectionView.tag][indexPath.item])
         }
-      
+        return cell
+        
+        //        // 이거 줄이자, cell의 section을 들고오면되네
+        //        if collectionView.tag == 0 { // 결국 같은 건데, 왜 리턴을 따로 했을까 ㅋㅋㅋㅋ
+        //            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCollectionViewCell.id, for: indexPath) as? TopicCollectionViewCell  else { return UICollectionViewCell() }
+        //            if topicDatas[0].count != 0 {
+        //                cell.setup(data: topicDatas[0][indexPath.item])
+        //            }
+        //            return cell
+        //        } else if  collectionView.tag == 1 {
+        //            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCollectionViewCell.id, for: indexPath) as? TopicCollectionViewCell else { return UICollectionViewCell() }
+        //            if topicDatas[1].count != 0 {
+        //                cell.setup(data: topicDatas[1][indexPath.item])
+        //            }
+        //            return cell
+        //        } else if collectionView.tag == 2 {
+        //            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCollectionViewCell.id, for: indexPath) as? TopicCollectionViewCell else { return UICollectionViewCell() }
+        //            if topicDatas[2].count != 0 {
+        //                cell.setup(data: topicDatas[2][indexPath.item])
+        //            }
+        //            return cell
+        //        } else {
+        //            return UICollectionViewCell()
+        //        }
+        
     }
 }
 

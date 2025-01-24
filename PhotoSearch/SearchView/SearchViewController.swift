@@ -67,7 +67,7 @@ final class SearchViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        searchView.searchController.searchBar.becomeFirstResponder()
+        
     }
     
     
@@ -176,7 +176,7 @@ final class SearchViewController: UIViewController {
                 self.searchView.label.isHidden = true
             }
             self.results = self.getInfo.results
-            
+             
             if self.getInfo.total > 0, !self.getInfo.results.isEmpty {
                 self.searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
@@ -301,7 +301,8 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
                 if previousButtonTag != nil {
                     NetworkManager.shared.callRequest(api: .searchImageWithColor(query: searchText, filter: filter, page: String(page), color: colorFilter), type: UnslpashGetImage.self) { value in
                         self.getInfo = value
-                        self.results = self.getInfo.results
+                        //self.results = self.getInfo.results
+                        self.results.append(contentsOf: self.getInfo.results)
                         self.page += 1
                     } failHandler: { status in
                         let msg = Error.errorMsg(satus: status)
