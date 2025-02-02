@@ -298,12 +298,12 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
         }
         for item in indexPaths {
             if results.count - 2 == item.item {
+                page += 1
                 if previousButtonTag != nil {
                     NetworkManager.shared.callRequest(api: .searchImageWithColor(query: searchText, filter: filter, page: String(page), color: colorFilter), type: UnslpashGetImage.self) { value in
                         self.getInfo = value
                         //self.results = self.getInfo.results
                         self.results.append(contentsOf: self.getInfo.results)
-                        self.page += 1
                     } failHandler: { status in
                         let msg = Error.errorMsg(satus: status)
                         self.showAlert(msg: msg)
@@ -313,8 +313,7 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
                     NetworkManager.shared.callRequest(api: .searchImage(query: searchText, filter: filter, page: String(page)), type: UnslpashGetImage.self){ value in
                         self.getInfo = value
                         self.results.append(contentsOf: self.getInfo.results)
-                        self.page += 1
-                    
+                      
                     } failHandler: { status in
                         let msg = Error.errorMsg(satus: status)
                         self.showAlert(msg: msg)
