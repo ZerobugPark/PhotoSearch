@@ -224,7 +224,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         
         let vc = DetailViewController()
-        vc.resultInfo = results[indexPath.item]
+        vc.detailModel.resultInfo = results[indexPath.item]
         navigationController?.pushViewController(vc, animated: false)
     }
     

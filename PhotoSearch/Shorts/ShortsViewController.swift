@@ -91,7 +91,7 @@ extension ShortsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let vc = DetailViewController()
-        vc.resultInfo = results[indexPath.item]
+        vc.detailModel.resultInfo = results[indexPath.item]
         navigationController?.pushViewController(vc, animated: true)
     }
     

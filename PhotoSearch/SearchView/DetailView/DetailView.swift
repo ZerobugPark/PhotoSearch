@@ -20,7 +20,7 @@ final class DetailView: BaseView {
     
     private let stackView = UIStackView()
     
-    let mainImge = CustomImageView(cornerRadius: false)
+    let mainImage = CustomImageView(cornerRadius: false)
     
     let informationLable =  CustomLabel(boldStyle: true, fontSize: 22)
     
@@ -34,13 +34,14 @@ final class DetailView: BaseView {
         addSubview(latestLabel)
         stackView.addArrangedSubview(nameLable)
         stackView.addArrangedSubview(dateLable)
-        addSubview(mainImge)
+        addSubview(mainImage)
         addSubview(informationLable)
         
         for i in 0..<3 {
             let label = CustomLabel(boldStyle: true, fontSize: 15)
             let resultLabel = CustomLabel(boldStyle: false, fontSize: 15)
-            
+            label.textAlignment = .left
+            resultLabel.textAlignment = .right
             descripionLables.append(label)
             addSubview(descripionLables[i])
             
@@ -48,7 +49,7 @@ final class DetailView: BaseView {
             addSubview(descripionResultLables[i])
             
         }
-
+        backgroundColor = .white
        
         
     }
@@ -77,14 +78,14 @@ final class DetailView: BaseView {
             
         }
         
-        mainImge.snp.makeConstraints { make in
+        mainImage.snp.makeConstraints { make in
             make.top.equalTo(self.profileImageView.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(self)
             make.height.equalTo(200)
             
         }
         informationLable.snp.makeConstraints { make in
-            make.top.equalTo(mainImge.snp.bottom).offset(8)
+            make.top.equalTo(mainImage.snp.bottom).offset(8)
             make.leading.equalTo(self.safeAreaLayoutGuide).offset(8)
             make.height.equalTo(30)
             make.width.equalTo(40)
@@ -94,7 +95,7 @@ final class DetailView: BaseView {
             
             descripionLables[i].snp.makeConstraints { make in
                 if i == 0{
-                    make.top.equalTo(mainImge.snp.bottom).offset(8)
+                    make.top.equalTo(mainImage.snp.bottom).offset(8)
                 } else {
                     make.top.equalTo(descripionLables[i-1].snp.bottom).offset(8)
                 }
@@ -106,7 +107,7 @@ final class DetailView: BaseView {
             
             descripionResultLables[i].snp.makeConstraints { make in
                 if i == 0{
-                    make.top.equalTo(mainImge.snp.bottom).offset(8)
+                    make.top.equalTo(mainImage.snp.bottom).offset(8)
                 } else {
                     make.top.equalTo(descripionResultLables[i-1].snp.bottom).offset(8)
                 }
@@ -127,10 +128,8 @@ final class DetailView: BaseView {
         stackView.spacing = 2
 
         latestLabel.textAlignment = .left
-        
-        
+    
 
-        
         DispatchQueue.main.async {
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
         }
