@@ -2,9 +2,12 @@
 
 ### Application Introduce
 
-![Simulator Screen Recording - iPhone 16 Pro - 2025-02-25 at 17 06 01](https://github.com/user-attachments/assets/d13c9888-a6d6-4519-acdd-df6ef1b90c5a)
-![Simulator Screen Recording - iPhone 16 Pro - 2025-02-25 at 17 07 17](https://github.com/user-attachments/assets/0cd2eaf6-7af9-4e14-a86f-5c421d27e65c)
-![Simulator Screen Recording - iPhone 16 Pro - 2025-02-25 at 17 06 01](https://github.com/user-attachments/assets/6bede7e2-a0e0-4b6c-b4fb-72eff467ef8f)
+<div style="text-align: center;">
+  <img src="https://github.com/user-attachments/assets/d13c9888-a6d6-4519-acdd-df6ef1b90c5a.gif" width="300" style="display: block; margin: auto; margin-bottom: 20px;">
+  <img src="https://github.com/user-attachments/assets/0cd2eaf6-7af9-4e14-a86f-5c421d27e65c.gif" width="300" style="display: block; margin: auto; margin-bottom: 20px;">
+  <img src="https://github.com/user-attachments/assets/a3bb834a-6350-4995-bfe4-2aab3f5dfa25.gif" width="300" style="display: block; margin: auto;">
+</div>
+
 
 ### 주요 기능
 
